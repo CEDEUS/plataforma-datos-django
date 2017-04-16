@@ -1,0 +1,6 @@
+postgresql
+postgresql-contrib
+python-psycopg2
+libpq-dev
+bootstrap-pagination
+psycopg2
