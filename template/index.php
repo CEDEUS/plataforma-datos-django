@@ -2,7 +2,7 @@
 <html>
 <head>
 
-  <title>Integración IDES</title>
+  <title>PD</title>
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -53,6 +53,23 @@
 
   <script src="{% static 'js/leaflet-pip.js' %}"></script>
 
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//observatorio.cedeus.cl/analytics/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '5']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//observatorio.cedeus.cl/analytics/piwik.php?idsite=5" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
 </head>
 <body>
 
@@ -68,30 +85,35 @@
     </div>
   </div>
 -->
-  <div class="col-lg-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;font-size:12px;">
+  <div class="col-xs-12 col-md-12 col-lg-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;font-size:12px;">
 
-<ul class="topnav" id="myTopnav">
-  <li><a class="active" href="/" style="padding:0;"><img src="{% static 'images/logos/iconos_logos-29.png' %}" alt="Plataforma" style="width:85%;"></a></li>
-  <li><a href="#">QUIENES SOMOS</a></li>
-  <li><a href="#categoria">CATEGORÍAS</a></li>
-  <li><a href="#myModal" data-toggle="modal" data-target="#myModal">CONTACTO</a></li>
-  <li class="icon">
-    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">☰</a>
-  </li>
-  <li style="border-bottom-color:#000000;" class="centros"><a href="ide.ocuc.cl">IDEOCUC</a></li>
-  <li style="border-bottom-color:#1F71b8;" class="centros"><a href="http://datos.cedeus.cl/">IDECEDEUS</a></li>
-  <li style="border-bottom-color:#ff5000;" class="centros"><a href="http://ide.cigiden.cl/">IDECIGIDEN</a></li>
-</ul>
-<script>
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
-</script>
+<nav class="navbar navbar-default navbar-fixed-top" style="padding-left:15%;padding-right:15%;background-color:#ffffff;border-color:#ffffff;">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/" style="padding:0;height:50px;"><img src="{% static 'images/logos/iconos_logos-29.png' %}" alt="Plataforma" style="width:96%;"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav" style="text-align:center;">
+            {% if request.session.user_name  %}
+            <li class="centros"><a href="/user_admin/">ADMIN</a></li>
+            {% endif%}
+            <li class="centros"><a href="#myModal" data-toggle="modal" data-target="#myModal">CONTACTO</a></li>
+            <li class="centros"><a href="#categoria">CATEGORÍAS</a></li>
+            <!--<li class="centros"><a href="#">QUIENES SOMOS</a></li>-->
+          </ul>
+          <ul class="nav navbar-nav navbar-right" style="text-align:center;margin-right:0px;">
+            <li style="border-bottom-color:#000000;" class="centros"><a href="http://ide.ocuc.cl">IDE-OCUC</a></li>
+            <li style="border-bottom-color:#1F71b8;" class="centros"><a href="http://datos.cedeus.cl/">IDE-CEDEUS</a></li>
+            <li style="border-bottom-color:#ff5000;" class="centros"><a href="http://ide.cigiden.cl/">IDE-CIGIDEN</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+    </nav>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -105,15 +127,34 @@ function myFunction() {
       <div class="modal-body">
         <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">CONTACTO</h3>
        <div class="form-group">
-         <input type="text" class="form-control" id="nombre" placeholder="Nombre completo*:">
+         <input type="text" class="form-control" id="nombre" placeholder="Nombre*:">
        </div>
        <div class="form-group">
-         <input type="password" class="form-control" id="email" placeholder="E-mail*">
+         <input type="text" class="form-control" id="email" placeholder="E-mail de contacto*">
        </div>
+        <div class="form-group">
+          <select class="form-control" id="sel1">
+            <option>Motivo:</option>
+            <option>Consultas</option>
+            <option>Felicitaciones</option>
+            <option>Reclamos</option>
+            <option>Sugerencias</option>
+          </select>
+        </div>  
+        <div class="form-group">
+          <select class="form-control" id="sel1">
+            <option>Dirigido a:</option>
+            <option>Administrador</option>
+            <option>Soporte</option>
+            <option>CEDEUS</option>
+            <option>CIGIDEN</option>
+            <option>OCUC</option>
+          </select>
+        </div>        
        <div class="form-group">
          <input type="password" class="form-control" id="asunto" placeholder="Asunto*">
        </div>
-  
+
         <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">MENSAJE</h3>
          <div class="form-group">
            <textarea class="form-control" rows="5"></textarea>
@@ -128,20 +169,19 @@ function myFunction() {
     </div>
   </div>
 </div>
-
-
-
   </div>
 
 
-  <div class="col-md-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
+  <div class="col-xs-12 col-md-12 col-lg-12 col_principal" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
 
-    <div class="col-md-12" style="background-image: url('{% static 'images/fondo/fondo_home-27.png' %}');border-bottom-style:inset;border-bottom-color:#3ba9e0;padding-bottom:3%;">
-      <div class="col-md-3">
-        <img src="{% static 'images/logos/iconos_logos-28.png' %}" alt="Plataforma" style="width: 75%;padding-top:12%;">
+    <div class="col-xs-12 col-md-12 col-lg-12 quienes_somos" style="background-image: url('{% static 'images/fondo/fondo_home-27.png' %}');">
+      <div class="col-xs-12 col-md-3 col-lg-3">
+        <p style="text-align:center;">
+          <img src="{% static 'images/logos/iconos_logos-28.png' %}" alt="Plataforma">
+        </p>
       </div>
 
-      <div class="col-md-9">
+      <div class="col-xs-12 col-md-9 col-lg-9">
         <h2 style="font-family:'open-sans condensed bold';color:#3ba9e0;">QUIENES SOMOS</h2>
         <p style="font-family:'open-sans semibold';font-size:14px;">
           Plataforma de Datos es un catálogo que reúne y organiza la información geoespacial que se desarrolla y difunde a través de las Infraestructuras de Datos Espaciales de CEDEUS, OCUC y CIGIDEN.
@@ -152,78 +192,34 @@ function myFunction() {
       </div>
     </div>
 
-    <div class="col-md-12" style="padding-bottom: 6%;padding-top: 6%;" id="categoria">
+    <div class="col-xs-12 col-md-12 col-lg-12" style="padding-bottom: 6%;padding-top: 6%;" id="categoria">
 
-      <div class="col-md-12" style="padding:0;">
-      <div class="col-md-1">
+      <div class="col-xs-12 col-md-12 col-lg-12" style="padding:0;">
+      <div class="col-xs-12 col-md-1 col-lg-1">
       </div>
-      <div class="col-md-10">  
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="buscador"><a title="Image 1" href="/buscador/"><img class="thumbnail img-responsive" src="{% static 'images/iconos/Icono01_buscador.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #3ba9e0;margin-top: 0px;margin-bottom: 0px;color: #3ba9e0;font-family: 'Open Sans Condensed Bold'; text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">BUSCADOR</p></div></div>
+      <div class="col-xs-12 col-md-10 col-lg-10">  
 
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Fronteras&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/Icono02_fronteras.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">FRONTERAS</p></div></div>
+      <div class="col-lg-3 col-md-3 col-xs-12" style="margin-top:26px;">
+        <div class="buscador"><a title="Image 1" href="/buscador/"><img class="thumbnail img-responsive" src="{% static 'images/iconos300/iconos_logos-29.png' %}" style="width:100%;"></a>
+        <p class="nombre_categoria_buscador">BUSCADOR</p></div>
+      </div>
 
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Salud&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos09_salud.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">SALUD</p></div></div>
+        {% for categoria in categorias %}
 
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Economía&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos04_economia.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">ECONOMÍA</p></div></div>
+        <div class="col-lg-3 col-md-3 col-xs-12" style="margin-top:26px;">
+          <div class="categorias"><a title="Image 1" href="/categoria/?cat={{categoria.nombre}}&order=titulo&fecha=-fecha"><img class="thumbnail img-responsive" src="{{categoria.imagen.url}}" style="width:100%;"></a>
+          <p class="nombre_categoria">{{categoria.nombre}}</p></div>
+        </div>
 
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Elevación&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos05_elevacion.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">ELEVACIÓN</p></div></div>
+        {% endfor %}
 
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Medio%20ambiente&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos06_mediambiente.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">MEDIO AMBIENTE</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Agricultura&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos07_agri.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">AGRICULTURA</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Información&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos08_informacion.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">INFORMACIÓN</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Climatología&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos03_meteorolo.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">CLIMATOLOGÍA</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Imágenes%20satelitales&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos10_imagesatelital.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 14%;margin-right: 14%;">IMÁGENES SATELITALES</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Aguas%20terrestres&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos10_imagesatelital.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">AGUAS TERRESTRES</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Inteligencia%20militar&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos12_intmilitar.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">INTELIGENCIA MILITAR</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Localización&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos13_localizacion.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">LOCALIZACIÓN</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Oceanos&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos14_oceanos.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">OCEANOS</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Biota&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos20_biota.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">BIOTA</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Sociedad&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos16_sociedad.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">SOCIEDAD</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Estructura&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos17_infraestructura.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">INFRAESTRUCTURA</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Transporte&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos18_transporte.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">TRANSPORTE</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Telecomunicaciones&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos19_telecomunicaciones.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 15%;margin-right: 15%;">TELECOMUNICACIONES</p></div></div>
-
-      <div class="col-lg-3 col-sm-4 col-xs-6"><div class="categorias"><a title="Image 1" href="/categoria/?cat=Planificación%20catastro&order=titulo&fecha=fecha"><img class="thumbnail img-responsive" src="{% static 'images/iconos/iconos15_planificacioncatastros.png' %}" style="width:100%;"></a>
-      <p style="border-top-style: outset;border-top-color: #ffffff;margin-top: 0px;margin-bottom: 0px;color: #ffffff;font-family: 'Open Sans Condensed Bold';text-align: -webkit-center;margin-left: 10%;margin-right: 10%;">PLANIFICACIÓN CATASTRO</p></div></div>
       </div>
       <div class="col-md-1">
       </div>
 
       </div><!-- fin categorias-->
 
-
+<!--
 <div class="col-lg-12" >
   <div class="carousel slide" id="myCarousel">
     <div class="carousel-inner" style="width:96%;">
@@ -263,7 +259,7 @@ function myFunction() {
             </div>
           </li>
         </ul>
-      </div><!-- /Slide1 --> 
+      </div>
       <div class="item">
         <ul class="thumbnails">
           <li class="col-sm-4">
@@ -300,7 +296,7 @@ function myFunction() {
             </div>
           </li>
         </ul>
-      </div><!-- /Slide2 --> 
+      </div>
       <div class="item">
         <ul class="thumbnails">
           <li class="col-sm-4">
@@ -337,43 +333,43 @@ function myFunction() {
             </div>
           </li>
         </ul>
-      </div><!-- /Slide3 --> 
+      </div>
     </div>
 
-<!--
+
     <nav>
       <ul class="control-box pager" style="text-align:center;">
         <li><a data-slide="prev" href="#myCarousel" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
         <li><a data-slide="next" href="#myCarousel" class=""><i class="glyphicon glyphicon-chevron-right"></i></li>
       </ul>
-    </nav>-->
-    <!-- /.control-box -->   
-  </div><!-- /#myCarousel -->
+    </nav>
+
+  </div> 
+ 
+</div> -->
+
 </div>
 
 
-</div>
+<div class="col-xs-12 col-md-12 col-lg-12 footer">
 
-
-<div class="col-md-12" style="border-top-style:outset;padding-top:2%;border-top-color: #3ba9e0;">
-
-  <div class="col-md-3">
+  <!--<div class="col-xs-12 col-md-3 col-lg-3">
     <a href="#myTopnav"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-21.png' %}" /></a>
+  </div>-->
+
+  <div class="col-xs-12 col-md-3 col-lg-3">
+    <a href="http://www.uc.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-22.png' %}" id="logo_uc"/></p></a>
   </div>
 
-  <div class="col-md-1">
-    <a href="http://www.uc.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-22.png' %}" /></a>
+  <div class="col-xs-4 col-md-3 col-md-3">
+    <a href="http://ocuc.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-23.png' %}" id="logo_ocuc"/></p></a>
+  </div>
+  <div class="col-xs-4 col-md-3 col-md-3">
+    <a href="http://www.cigiden.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-24.png' %}" id="logo_cigiden"/></p></a>
   </div>
 
-  <div class="col-md-3">
-    <a href="http://ocuc.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-23.png' %}" /></a>
-  </div>
-  <div class="col-md-3">
-    <a href="http://www.cigiden.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-24.png' %}" /></a>
-  </div>
-
-  <div class="col-md-2">
-    <a href="http://www.cedeus.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-25.png' %}" /></a>
+  <div class="col-xs-4 col-md-3 col-md-3">
+    <a href="http://www.cedeus.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-25.png' %}" id="logo_cedeus"/></p></a>
   </div>
 
 </div>

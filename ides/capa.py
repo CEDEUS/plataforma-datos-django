@@ -1,6 +1,6 @@
 # coding=utf-8
 import urllib2,base64,json
-import sys
+import sys,os
 from ides.models import Categorias,Funciona,Privacidad
 from datetime import datetime
 from django.utils import timezone
@@ -26,7 +26,7 @@ def traductor_categoria(categoria):
 	elif categoria == 'farming':
 		return 'Agricultura'
 	elif categoria == 'geoscientificInformation':
-		return 'Información'
+		return 'Información geocientífica'
 	elif categoria == 'climatologyMeteorologyAtmosphere':
 		return 'Climatología'
 	elif categoria == 'imageryBaseMapsEarthCover':

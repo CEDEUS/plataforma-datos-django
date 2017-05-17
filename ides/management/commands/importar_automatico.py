@@ -19,7 +19,7 @@ class Command(BaseCommand):
 				t_end = time.time() + 60 * 1
 				contador=0
 				now=datetime.now()
-				hora = now.replace(hour=17, minute=30, second=0,microsecond=0)
+				hora = now.replace(hour=17, minute=28, second=0,microsecond=0)
 				now_time=now.time()
 				os.system('echo "tiempo %s "' % now_time)
 				os.system('echo "tiempo %s "' % hora.time())

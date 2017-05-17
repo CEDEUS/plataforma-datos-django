@@ -1,12 +1,15 @@
+{% load analytical %}
+{% load piwik %}
+{% piwik %}
 <!DOCTYPE html>
 <html>
 <head>
-    
-    <title>Integración IDES</title>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
+  <title>Buscador PD</title>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
   <!-- Bootstrap Core CSS -->
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
@@ -53,234 +56,483 @@
 
   <script src="{% static 'js/leaflet-pip.js' %}"></script>
   <script src="{% static 'js/jquery.twbsPagination.js' %}"></script>
+
+  <!-- Piwik -->
+  <script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//observatorio.cedeus.cl/analytics/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '5']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+  </script>
+  <noscript><p><img src="//observatorio.cedeus.cl/analytics/piwik.php?idsite=5" style="border:0;" alt="" /></p></noscript>
+  <!-- End Piwik Code -->
 </head>
 <body>
 
-   <div id="wrapper">
-<!--
-    <div class="col-md-12" style="background-color:#ffffff;padding-left: 15%;padding-top: 2%;padding-right: 15%;border-bottom-style: inset;padding-bottom: 2%;">
-        <div class="col-md-6">
-            <img src="../images/logos/iconos_logos-21.png" alt="Plataforma" style="float:left;padding-top:1%;">
-        </div>
-        <div class="col-md-6">
-            <img src="../images/logos/iconos_logos-22.png" alt="UC"  style="float:right;">
-        </div>
-    </div>
--->
-       
+ <div id="wrapper">
+  <div class="col-xs-12 col-md-12 col-lg-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;font-size:12px;">
 
-  <div class="col-lg-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;font-size:12px;">
-
-<ul class="topnav" id="myTopnav">
-  <li><a class="active" href="index.php" style="padding:0;"><img src="{% static 'images/logos/iconos_logos-29.png' %}" alt="Plataforma" style="width:85%;"></a></li>
-  <li><a href="#">QUIENES SOMOS</a></li>
-  <li><a href="#categoria">CATEGORÍAS</a></li>
-  <li><a href="#myModal" data-toggle="modal" data-target="#myModal">CONTACTO</a></li>
-  <li class="icon">
-    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">☰</a>
-  </li>
-  <li style="border-bottom-color:#000000;" class="centros"><a href="ide.ocuc.cl">IDEOCUC</a></li>
-  <li style="border-bottom-color:#1F71b8;" class="centros"><a href="http://datos.cedeus.cl/">IDECEDEUS</a></li>
-  <li style="border-bottom-color:#ff5000;" class="centros"><a href="http://ide.cigiden.cl/">IDECIGIDEN</a></li>
-</ul>
-<script>
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
-</script>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+    <nav class="navbar navbar-default navbar-fixed-top" style="padding-left:15%;padding-right:15%;background-color:#ffffff;border-color:#ffffff;">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
         </button>
-        <h4 class="modal-title" id="myModalLabel">FORMULARIO DE CONTACTO</h4>
+        <a class="navbar-brand" href="/" style="padding:0;height:50px;"><img src="{% static 'images/logos/iconos_logos-29.png' %}" alt="Plataforma" style="width:96%;"></a>
       </div>
-      <div class="modal-body">
-        <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">CONTACTO</h3>
-       <div class="form-group">
-         <input type="text" class="form-control" id="nombre" placeholder="Nombre completo*:">
-       </div>
-       <div class="form-group">
-         <input type="password" class="form-control" id="email" placeholder="E-mail*">
-       </div>
-       <div class="form-group">
-         <input type="password" class="form-control" id="asunto" placeholder="Asunto*">
-       </div>
-       <div class="form-group">
-         <input type="password" class="form-control" id="telefono" placeholder="Teléfono*">
-       </div>
-  
-        <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">MENSAJE</h3>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav" style="text-align:center;">
+          {% if request.session.user_name  %}
+          <li class="centros"><a href="/user_admin/">ADMIN</a></li>
+          {% endif%}
+          <li class="centros"><a href="#myModal" data-toggle="modal" data-target="#myModal">CONTACTO</a></li>
+          <li class="centros"><a href="/#categoria">CATEGORÍAS</a></li>
+          <li class="centros"><a href="/">QUIENES SOMOS</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right" style="text-align:center;margin-right:0px;">
+          <li style="border-bottom-color:#000000;" class="centros"><a href="http://ide.ocuc.cl">IDE-OCUC</a></li>
+          <li style="border-bottom-color:#1F71b8;" class="centros"><a href="http://datos.cedeus.cl/">IDE-CEDEUS</a></li>
+          <li style="border-bottom-color:#ff5000;" class="centros"><a href="http://ide.cigiden.cl/">IDE-CIGIDEN</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">FORMULARIO DE CONTACTO</h4>
+          </div>
+          <div class="modal-body">
+            <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">CONTACTO</h3>
+            <div class="form-group">
+             <input type="text" class="form-control" id="nombre" placeholder="Nombre*:">
+           </div>
+           <div class="form-group">
+             <input type="text" class="form-control" id="email" placeholder="E-mail de contacto*">
+           </div>
+           <div class="form-group">
+            <select class="form-control" id="sel1">
+              <option>Motivo:</option>
+              <option>Consultas</option>
+              <option>Felicitaciones</option>
+              <option>Reclamos</option>
+              <option>Sugerencias</option>
+            </select>
+          </div>  
+          <div class="form-group">
+            <select class="form-control" id="sel1">
+              <option>Dirigido a:</option>
+              <option>Administrador</option>
+              <option>Soporte</option>
+              <option>CEDEUS</option>
+              <option>CIGIDEN</option>
+              <option>OCUC</option>
+            </select>
+          </div>        
+          <div class="form-group">
+           <input type="password" class="form-control" id="asunto" placeholder="Asunto*">
+         </div>
+
+         <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">MENSAJE</h3>
          <div class="form-group">
            <textarea class="form-control" rows="5"></textarea>
          </div>
-  
-  
-      </div>
-      <div class="modal-footer">
+
+
+       </div>
+       <div class="modal-footer">
         <button type="button" class="btn btn-default" style="border:0;font- size:22px;color:#3BA9E0;font-family:'open-sans condensed bold';" data-dismiss="modal">CERRAR</button>
         <button type="submit" class="btn btn-default" style="border:0;font- size:22px;color:#3BA9E0;font-family:'open-sans condensed bold';">ENVIAR<i class="glyphicon   glyphicon-chevron-right"></i></button>
       </div>
     </div>
   </div>
 </div>
-  </div>
-    <div class="col-md-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
+</div>
 
 
-      <div class="col-md-12" style="border-bottom-style: outset;padding-left:0px;padding-right:0px;">
-       <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">N1:
-        </h3>
-
-
-
-
-    {{content}}
-
-
-
-       <form action="/resultado/" method="GET">
-        <div id="custom-search-input" style="margin-bottom:20px;">
-            <div class="input-group col-md-12">
-                <input type="text" class="form-control input-lg" placeholder="Palabra clave" />
-                <span class="input-group-btn">
+<div class="col-xs-12 col-md-12 col-lg-12 col_principal" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
+ <form action="/buscador/" method="GET">
+   <div class="form-group">
+    <div class="col-xs-12 col-md-12 col-lg-12" style="padding-left:0px;padding-right:0px;">
+     <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">Buscar:
+     </h3>
+     <div id="custom-search-input" style="margin-bottom:20px;">
+      <div class="input-group col-xs-12 col-md-12 col-lg-12">
+        <form method="get" action="/buscador">
+          {% if bus == '' %}
+          <input name="busqueda" type="text" class="form-control input-lg" placeholder="Palabra clave" />
+          {% else %}
+          <input name="busqueda" type="text" class="form-control input-lg" placeholder="{{bus}}" />
+          {% endif %}               
+               <!-- <span class="input-group-btn">
                     <button class="btn btn-info btn-lg" type="submit">
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
-                </span>
+                  </span>-->
+                </form>
+              </div>
             </div>
-        </div>
-      </form>
-      </div>
+          </div>
 
-      <div class="col-md-12" style="border-bottom-style: outset;padding-left:0px;padding-right:0px;">
-        <div class="col-md-6" style="padding-left:0px;">
-       <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">FILTRO</h3>
-        <div id="custom-search-input" style="margin-bottom:20px;">
-            <div class="input-group col-md-12" style="padding-bottom:2%;">
-                <input type="text" class="form-control input-lg" placeholder="Categoría" />
-                <span class="input-group-btn">
-                    <button class="btn btn-info btn-lg" type="button">
-                        <i class="glyphicon glyphicon-chevron-down"></i>
-                    </button>
-                </span>
+          <div class="col-xs-12 col-md-12 col-lg-12" style="padding-left:0px;padding-right:0px;">
+            <div class="col-xs-12 col-md-6 col-lg-6" style="padding-left:0px;padding-right:0px;">
+             <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';margin:0;">FILTRO</h3>
+             <div id="custom-search-input" style="margin-bottom:20px;">
+              <div class="input-group col-xs-12 col-md-12 col-lg-12" style="padding-bottom:2%;">
+                <select name="categoria" class="form-control">
+                  <option value="CATEGORIA">CATEGORÍA</option>
+                  <option value="Fronteras">FRONTERAS</option>
+                  <option value="Salud">SALUD</option>
+                  <option value="Economía">ECONOMÍA</option>
+                  <option value="Elevación">ELEVACIÓN</option>
+                  <option value="Medio ambiente">MEDIO AMBIENTE</option>
+                  <option value="Agricultura">AGRICULTURA</option>
+                  <option value="Información geocientífica">INFORMACIÓN GEOCIENTÍFICA</option>
+                  <option value="Climatología">CLIMATOLOGÍA</option>
+                  <option value="Imágenes satelitales">IMÁGENES SATELITALES</option>
+                  <option value="Aguas terrestres">AGUAS TERRESTRES</option>
+                  <option value="Inteligencia militar">INTELIGENCIA MILITAR</option>
+                  <option value="Localización">LOCALIZACIÓN</option>
+                  <option value="Oceanos">OCEANOS</option>
+                  <option value="Biota">BIOTA</option>
+                  <option value="Sociedad">SOCIEDAD</option>
+                  <option value="Infraestructura">INFRAESTRUCTURA</option>
+                  <option value="Transporte">TRANSPORTE</option>
+                  <option value="Comunicaciones">TELECOMUNICACIONES</option>
+                  <option value="Planificación catastro">PLANIFICACIÓN CATASTRO</option>
+                </select>
+              </div>
+              <div class="input-group col-xs-12 col-md-12 col-lg-12">
+                <select name="origen" class="form-control">
+                  <option value="ORIGEN">ORIGEN</option>
+                  <option value="CEDEUS">CEDEUS</option>
+                  <option value="CIGIDEN">CIGIDEN</option>
+                  <option value="OCUC">OCUC</option>
+                </select>
+              </div>
             </div>
-            <div class="input-group col-md-12">
-                <input type="text" class="form-control input-lg" placeholder="Fuente" />
-                <span class="input-group-btn">
-                    <button class="btn btn-info btn-lg" type="button">
-                        <i class="glyphicon glyphicon-chevron-down"></i>
-                    </button>
-                </span>
+          </div>
+          <div class="col-xs-12 col-md-6 col-lg-6" style="padding-right:0px;padding-left:0px;">
+           <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';margin:0;">ORDEN</h3>
+           <div id="custom-search-input" style="margin-bottom:20px;">
+            <div class="input-group col-xs-12 col-md-12 col-lg-12" style="padding-bottom:2%;">
+              <select name="orden" class="form-control">
+                <option value="titulo">ASCENDENTE</option>
+                <option value="-titulo">DESCENDENTE</option>
+              </select>
+            </div>
+            <div class="input-group col-xs-12 col-md-12 col-lg-12">
+              <select name="fecha" class="form-control">
+                <option value="fecha">MÁS ANTIGUO</option>
+                <option value="-fecha">MÁS RECIENTE</option>
+              </select>
             </div>
           </div>
         </div>
-        <div class="col-md-6" style="padding-right:0px;">
-       <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">ORDEN</h3>
-        <div id="custom-search-input" style="margin-bottom:20px;">
-            <div class="input-group col-md-12" style="padding-bottom:2%;">
-                <input type="text" class="form-control input-lg" placeholder="Alfabético:A-Z /Z-A" />
-                <span class="input-group-btn">
-                    <button class="btn btn-info btn-lg" type="button">
-                        <i class="glyphicon glyphicon-chevron-down"></i>
-                    </button>
-                </span>
-            </div>
-            <div class="input-group col-md-12">
-                <input type="text" class="form-control input-lg" placeholder="Fecha: Más Reciente / Más antiguo" />
-                <span class="input-group-btn">
-                    <button class="btn btn-info btn-lg" type="button">
-                        <i class="glyphicon glyphicon-chevron-down"></i>
-                    </button>
-                </span>
+      </div>
+      <div class="col-xs-12 col-md-12 col-lg-12" style="padding:0;">
+        <div class="col-xs-12 col-md-10 col-lg-10" style="padding:0;">
+        </div>
+        <div class="col-xs-12 col-md-2 col-lg-2" style="padding:0;">
+          <button class="btn btn-info btn-lg" type="submit" style="display:block;width:100%;">
+            FILTRAR <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="col-xs-12 col-md-12 col-lg-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
+  <div class="col-xs-12 col-md-12 col-lg-12" style="border-bottom-style:outset;border-bottom-color:#3BA9E0;padding:0px;">
+    <div class="col-xs-12 col-md-4 col-lg-4" style="margin-bottom:20px;">
+     <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';text-align:center;border-bottom-style:outset;border-bottom-color:#3BA9E0;margin-top:0px;margin-bottom:15px;">MÁS RECIENTES</h3>
+     
+     {% for item in recientes%}
+
+     <div class="col-xs-12 col-md-12 col-lg-12" style="border-bottom-style:outset;border-bottom-color:#3BA9E0;padding:0px;">
+
+       {%if item.ide == "OCUC"%}
+       <a href="http://ide.ocuc.cl/layers/{{item.workspace}}:{{item.name}}">
+         {%elif item.ide == "CEDEUS"%}
+         <a href="http://datos.cedeus.cl/layers/{{item.workspace}}:{{item.name}}">             
+           {%elif item.ide == "CIGIDEN"%}
+           <a href="http://ide.cigiden.cl/layers/{{item.workspace}}:{{item.name}}">
+            {%endif%}
+            <h1 style="color:#000000;font-size:14px;font-family:open-sans condensed bold;text-align:center;">{{item.titulo}}</h1>
+          </a>
+
+          <div class="col-xs-12 col-md-12 col-lg-12" style="padding:0px;">
+            <p style="text-align:center;">
+             {%if item.categoria == "Fronteras"%}
+             <img src="{% static "images/iconos/Icono02_fronteras.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
+             {%elif item.categoria == "Salud"%}
+             <img src="{% static "images/iconos/iconos09_salud.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
+             {%elif item.categoria == "Economia"%}
+             <img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
+             {%elif item.categoria == "Elevación"%}
+             <img src="{% static "images/iconos/iconos05_elevacion.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
+             {%elif item.categoria == "Medio ambiente"%}
+             <img src="{% static "images/iconos/iconos06_mediambiente.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
+             {%elif item.categoria == "Agricultura"%}
+             <img src="{% static "images/iconos/iconos07_agri.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
+             {%elif item.categoria == "Información geocientífica"%}
+             <img src="{% static "images/iconos/iconos08_informacion.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
+             {%elif item.categoria == "Climatología"%}
+             <img src="{% static "images/iconos/iconos03_meteorolo.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
+             {%elif item.categoria == "Imágenes satelitales"%}
+             <img src="{% static "images/iconos/iconos10_imagesatelital.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
+             {%elif item.categoria == "Imágenes satelitales"%}
+             <img src="{% static "images/iconos/iconos10_imagesatelital.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
+             {%elif item.categoria == "Inteligencia militar"%}
+             <img src="{% static "images/iconos/iconos12_intmilitar.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">             
+             {%elif item.categoria == "Localización"%}
+             <img src="{% static "images/iconos/iconos13_localizacion.png" %}" alt="icono" style="width:50%;background-color:#337ab7;"> 
+             {%elif item.categoria == "Oceanos"%}
+             <img src="{% static "images/iconos/iconos14_oceanos.png" %}" alt="icono" style="width:50%;background-color:#337ab7;"> 
+             {%elif item.categoria == "Biota"%}
+             <img src="{% static "images/iconos/iconos20_biota.png" %}" alt="icono" style="width:50%;background-color:#337ab7;"> 
+             {%elif item.categoria == "Sociedad"%}
+             <img src="{% static "images/iconos/iconos16_sociedad.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">    
+             {%elif item.categoria == "Infraestructura"%}
+             <img src="{% static "images/iconos/iconos17_infraestructura.png" %}" alt="icono" style="width:50%;background-color:#337ab7;"> 
+             {%elif item.categoria == "Transporte"%}
+             <img src="{% static "images/iconos/iconos18_transporte.png" %}" alt="icono" style="width:50%;background-color:#337ab7;"> 
+             {%elif item.categoria == "Telecomunicaciones"%}
+             <img src="{% static "images/iconos/iconos19_telecomunicaciones.png" %}" alt="icono" style="width:50%;background-color:#EDEDED;"> 
+             {%elif item.categoria == "Planificación catastro"%}
+             <img src="{% static "images/iconos/iconos15_planificacioncatastros.png" %}" alt="icono" style="width:50%;background-color:#EDEDED;"> 
+             {%else%}
+             <img src="{% static "images/iconos/Icono01_buscador.png" %}" alt="icono" style="width:50%;background-color:#EDEDED;"> 
+           </p>
+           {%endif%}
+         </div>
+         <p style="text-align:center;">
+          Categoría: <strong>{{item.categoria}}</strong><br>
+          Fuente: 
+          {%if item.ide == "CIGIDEN"%}
+          <strong style="color:#ff5000;">
+           {%elif item.ide == "OCUC"%}
+           <strong style="color:#000000;">
+             {%elif item.ide == "CEDEUS" %}
+             <strong style="color:#337ab7;">
+              {%endif%}
+              {{item.ide}}</strong>
+              <br>Fecha:{{item.fecha}}
+          </p>
+       </div>
+
+       {% endfor %}
+
+     </div>
+     <div class="col-xs-12 col-md-8 col-lg-8">      
+       {% for item in content %}
+       <div class="col-xs-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
+        <div class="col-xs-6 col-md-4 col-lg-4" style="padding:0px;">
+
+         {%if item.categoria == "Fronteras"%}
+         <img src="{% static "images/iconos/Icono02_fronteras.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
+         {%elif item.categoria == "Salud"%}
+         <img src="{% static "images/iconos/iconos09_salud.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
+         {%elif item.categoria == "Economia"%}
+         <img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
+         {%elif item.categoria == "Elevación"%}
+         <img src="{% static "images/iconos/iconos05_elevacion.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
+         {%elif item.categoria == "Medio ambiente"%}
+         <img src="{% static "images/iconos/iconos06_mediambiente.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
+         {%elif item.categoria == "Agricultura"%}
+         <img src="{% static "images/iconos/iconos07_agri.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
+         {%elif item.categoria == "Información geocientífica"%}
+         <img src="{% static "images/iconos/iconos08_informacion.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
+         {%elif item.categoria == "Climatología"%}
+         <img src="{% static "images/iconos/iconos03_meteorolo.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
+         {%elif item.categoria == "Imágenes satelitales"%}
+         <img src="{% static "images/iconos/iconos10_imagesatelital.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
+         {%elif item.categoria == "Imágenes satelitales"%}
+         <img src="{% static "images/iconos/iconos10_imagesatelital.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
+         {%elif item.categoria == "Inteligencia militar"%}
+         <img src="{% static "images/iconos/iconos12_intmilitar.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">             
+         {%elif item.categoria == "Localización"%}
+         <img src="{% static "images/iconos/iconos13_localizacion.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
+         {%elif item.categoria == "Oceanos"%}
+         <img src="{% static "images/iconos/iconos14_oceanos.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
+         {%elif item.categoria == "Biota"%}
+         <img src="{% static "images/iconos/iconos20_biota.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
+         {%elif item.categoria == "Sociedad"%}
+         <img src="{% static "images/iconos/iconos16_sociedad.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">    
+         {%elif item.categoria == "Infraestructura"%}
+         <img src="{% static "images/iconos/iconos17_infraestructura.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
+         {%elif item.categoria == "Transporte"%}
+         <img src="{% static "images/iconos/iconos18_transporte.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
+         {%elif item.categoria == "Telecomunicaciones"%}
+         <img src="{% static "images/iconos/iconos19_telecomunicaciones.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
+         {%elif item.categoria == "Planificación catastro"%}
+         <img src="{% static "images/iconos/iconos15_planificacioncatastros.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
+         {%else%}
+         <img src="{% static "images/iconos/Icono01_buscador.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
+
+         {%endif%}
+
+       </div>
+       <div class="col-xs-6 col-md-8 col-lg-8">
+
+         {%if item.ide == "OCUC"%}
+         <a href="http://ide.ocuc.cl/layers/{{item.workspace}}:{{item.name}}">
+           {%elif item.ide == "CEDEUS"%}
+           <a href="http://datos.cedeus.cl/layers/{{item.workspace}}:{{item.name}}">             
+             {%elif item.ide == "CIGIDEN"%}
+             <a href="http://ide.cigiden.cl/layers/{{item.workspace}}:{{item.name}}">
+               {%endif%}
+
+               <h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">{{item.titulo}}</h4></a>
+               <p>
+                Fuente: 
+                {%if item.ide == "CIGIDEN"%}
+                <strong style="color:#ff5000;">
+                 {%elif item.ide == "OCUC"%}
+                 <strong style="color:#000000;">
+                   {%elif item.ide == "CEDEUS" %}
+                   <strong style="color:#337ab7;">
+                    {%endif%}
+                    {{item.ide}}</strong>
+                    <br>Categoría: <strong>{{item.categoria}}</strong><br>Descripción:<br>{{item.abstract}}<br>Fecha:{{item.fecha}}
+                  </p>
+                </div>
+              </div>
+              {%endfor%}
+
+              {% if categoria %}  
+              {% if content.has_other_pages %}
+              <ul class="pagination">
+                {% if content.number == 1 %}
+                <li class="disabled"><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page=1" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-backward" style="font-size:17px;"></i></a></li>
+                {% else %}
+                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page=1"><i class="glyphicon glyphicon-fast-backward" style="font-size:17px;"></i></a></li>
+                {% endif %}
+                {% if content.has_previous %}
+                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{ content.previous_page_number }}"><i class="glyphicon glyphicon-backward" style="font-size:17px;"></i></a></li>
+                {% else %}
+                <li class="disabled"><span><i class="glyphicon glyphicon-backward" style="font-size:17px;"></i></span></li>
+                {% endif %}
+
+                {% for pg in page_range %}
+                {% if content.number == pg %}
+                <li class="active"><span>{{ pg }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{ pg }}">{{ pg }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if content.has_next %}
+                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{ content.next_page_number }}"><i class="glyphicon glyphicon-forward" style="font-size:17px;"></i></a></li>
+                {% else %}
+                <li class="disabled"><span><i class="glyphicon glyphicon-forward" style="font-size:17px;"></i></span></li>
+                {% endif %}
+                {% if content.number == max_index %}
+                <li class="disabled"><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{max_index}}" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-forward" style="font-size:17px;"></i></a></li>
+                {% else %}
+                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{max_index}}"><i class="glyphicon glyphicon-fast-forward" style="font-size:17px;"></i></a></li>
+                {% endif %}
+              </ul>
+              {% endif %}
+              {% else %}
+              {% if content.has_other_pages %}
+              <ul class="pagination">
+                {% if content.number == 1 %}
+                <li class="disabled"><a href="?page=1" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-backward" style="font-size:17px;"></i></a></li>
+                {% else %}
+                <li><a href="?page=1"><i class="glyphicon glyphicon-fast-backward" style="font-size:17px;"></i></a></li>
+                {% endif %}
+                {% if content.has_previous %}
+                <li><a href="?page={{ content.previous_page_number }}"><i class="glyphicon glyphicon-backward" style="font-size:17px;"></i></a></li>
+                {% else %}
+                <li class="disabled"><span><i class="glyphicon glyphicon-backward" style="font-size:17px;"></i></span></li>
+                {% endif %}
+
+                {% for pg in page_range %}
+                {% if content.number == pg %}
+                <li class="active"><span>{{ pg }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                <li><a href="?page={{ pg }}">{{ pg }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if content.has_next %}
+                <li><a href="?page={{ content.next_page_number }}"><i class="glyphicon glyphicon-forward" style="font-size:17px;"></i></a></li>
+                {% else %}
+                <li class="disabled"><span><i class="glyphicon glyphicon-forward" style="font-size:17px;"></i></span></li>
+                {% endif %}
+                {% if content.number == max_index %}
+                <li class="disabled"><a href="?page={{max_index}}" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-forward" style="font-size:17px;"></i></a></li>
+                {% else %}
+                <li><a href="?page={{max_index}}"><i class="glyphicon glyphicon-fast-forward" style="font-size:17px;"></i></a></li>
+                {% endif %}
+              </ul>
+              {% endif %}
+              {% endif %}
+
             </div>
           </div>
-        </div>
-      </div>
 
-    </div>
-
-    <div class="col-md-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
-      <div class="col-md-12" style="border-bottom-style:outset;border-bottom-color:#3BA9E0;padding:0px;">
-      <div class="col-md-4" style="border-top-style:outset;border-top-color:#3BA9E0;">
-       <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">RECOMENDADOS</h3>
-      </div>
-      <div class="col-md-8">      
-      <div class="col-md-2"><button id="mostrar" type="button" class="btn btn-warning btn-xs">Mostrar solo info</button></div>
-      <div class="col-md-8" id="info"></div>
-
-           <nav aria-label="Page navigation">
-           <div id="content"></div>
-           <ul class="sync-pagination pagination-sm"></ul>
-           </nav>
-      </div>
-      </div>
-
-        <div class="col-md-12" style="margin-top: 3%;">
+          <div class="col-xs-12 col-md-12 col-lg-12 footer">
 
 
-        
-  <div class="col-md-3">
-    <a href="#myTopnav"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-21.png' %}" /></a>
-  </div>
+            <div class="col-xs-12 col-md-3 col-lg-3">
+              <a href="http://www.uc.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-22.png' %}" id="logo_uc"/></p></a>
+            </div>
 
-  <div class="col-md-1">
-    <a href="http://www.uc.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-22.png' %}" /></a>
-  </div>
+            <div class="col-xs-4 col-md-3 col-md-3">
+              <a href="http://ocuc.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-23.png' %}" id="logo_ocuc"/></p></a>
+            </div>
+            <div class="col-xs-4 col-md-3 col-md-3">
+              <a href="http://www.cigiden.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-24.png' %}" id="logo_cigiden"/></p></a>
+            </div>
 
-  <div class="col-md-3">
-    <a href="http://ocuc.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-23.png' %}" /></a>
-  </div>
-  <div class="col-md-3">
-    <a href="http://www.cigiden.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-24.png' %}" /></a>
-  </div>
+            <div class="col-xs-4 col-md-3 col-md-3">
+              <a href="http://www.cedeus.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-25.png' %}" id="logo_cedeus"/></p></a>
+            </div>
 
-  <div class="col-md-2">
-    <a href="http://www.cedeus.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-25.png' %}" /></a>
-  </div>
-        
+          </div>
+
         </div>
 
-        <div class="col-md-12">
+      </div>
 
 
-
-    </div>
-</div>
-
-</div>
-
-
-<script type="text/javascript">
-    $("#mostrar").click(function() {
+      <script type="text/javascript">
+      $("#mostrar").click(function() {
         $("#info").empty();
         $("#info").load( "http://192.168.1.43/layers/geonode%3Apob_mz_iquique_12 #info" );
-    });
+      });
 
-    $("#mostrar1").click(function() {
+      $("#mostrar1").click(function() {
         $("#info1").empty();
         $("#info1").load( "http://192.168.1.43/layers/geonode%3Apob_mz_iquique_12" );
-    });
-</script>
+      });
+      </script>
 
-<script type="text/javascript">
+      <script type="text/javascript">
 
-var cont=1;
-    $('.sync-pagination').twbsPagination({
+      var cont=1;
+      $('.sync-pagination').twbsPagination({
         totalPages: 4,
         onPageClick: function (evt, page) {
-            $('#content').html('<div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#ff5000;">CIGIDEN</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#1F71b8;">CEDEUS</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#000000;">OCUC</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#000000;">OCUC</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#000000;">OCUC</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div>');
-            cont++;
+          $('#content').html('<div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#ff5000;">CIGIDEN</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#1F71b8;">CEDEUS</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#000000;">OCUC</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#000000;">OCUC</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#000000;">OCUC</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div>');
+          cont++;
         }
-    });
+      });
 </script>
 
 

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ides',
+    'analytical',
     'bootstrap_pagination',
     'django.contrib.postgres',
 ]
@@ -86,7 +87,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'ides',
-	'USER': 'admin_ide',
+	'USER': 'root',
 	'PASSWORD': 'password',
 	'HOST': 'localhost',
 	'PORT': '',
@@ -131,3 +132,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = BASE_DIR + '/../media/'
+MEDIA_URL = '/media/'
+
+PIWIK_DOMAIN_PATH = '190.107.176.252'
+PIWIK_SITE_ID = '5'

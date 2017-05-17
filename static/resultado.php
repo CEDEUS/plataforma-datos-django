@@ -58,30 +58,32 @@
 
    <div id="wrapper">
 
-  <div class="col-lg-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;font-size:12px;">
+  <div class="col-xs-12 col-md-12 col-lg-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;font-size:12px;">
 
-<ul class="topnav" id="myTopnav">
-  <li><a class="active" href="index.php" style="padding:0;"><img src="{% static 'images/logos/iconos_logos-29.png' %}" alt="Plataforma" style="width:85%;"></a></li>
-  <li><a href="#">QUIENES SOMOS</a></li>
-  <li><a href="#categoria">CATEGORÍAS</a></li>
-  <li><a href="#myModal" data-toggle="modal" data-target="#myModal">CONTACTO</a></li>
-  <li class="icon">
-    <a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">☰</a>
-  </li>
-  <li style="border-bottom-color:#000000;" class="centros"><a href="ide.ocuc.cl">IDEOCUC</a></li>
-  <li style="border-bottom-color:#1F71b8;" class="centros"><a href="http://datos.cedeus.cl/">IDECEDEUS</a></li>
-  <li style="border-bottom-color:#ff5000;" class="centros"><a href="http://ide.cigiden.cl/">IDECIGIDEN</a></li>
-</ul>
-<script>
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
-</script>
+<nav class="navbar navbar-default navbar-fixed-top" style="padding-left:15%;padding-right:15%;background-color:#ffffff;border-color:#ffffff;">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/" style="padding:0;height:50px;"><img src="{% static 'images/logos/iconos_logos-29.png' %}" alt="Plataforma" style="width:96%;"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav" style="text-align:center;">
+            <li class="centros"><a href="/">QUIENES SOMOS</a></li>
+            <li class="centros"><a href="/#categoria">CATEGORÍAS</a></li>
+            <li class="centros"><a href="#myModal" data-toggle="modal" data-target="#myModal">CONTACTO</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" style="text-align:center;margin-right:0px;">
+            <li style="border-bottom-color:#000000;" class="centros"><a href="ide.ocuc.cl">IDEOCUC</a></li>
+            <li style="border-bottom-color:#1F71b8;" class="centros"><a href="http://datos.cedeus.cl/">IDECEDEUS</a></li>
+            <li style="border-bottom-color:#ff5000;" class="centros"><a href="http://ide.cigiden.cl/">IDECIGIDEN</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+    </nav>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -103,9 +105,6 @@ function myFunction() {
        <div class="form-group">
          <input type="password" class="form-control" id="asunto" placeholder="Asunto*">
        </div>
-       <div class="form-group">
-         <input type="password" class="form-control" id="telefono" placeholder="Teléfono*">
-       </div>
   
         <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">MENSAJE</h3>
          <div class="form-group">
@@ -121,12 +120,9 @@ function myFunction() {
     </div>
   </div>
 </div>
-
-
-
   </div>
 
-    <div class="col-md-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
+  <div class="col-xs-12 col-md-12 col-lg-12 col_principal" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
 
     <div class="col-md-12" style="background-image: url('{% static 'images/fondo/fondo_home-27.png' %}');border-bottom-style:inset;border-bottom-color:#3ba9e0;padding-bottom:3%;">
       <div class="col-md-3">
@@ -190,27 +186,28 @@ function myFunction() {
       </div>
       </div>
 
-        <div class="col-md-12" style="margin-top: 3%;">
-        
-  <div class="col-md-3">
+<div class="col-xs-12 col-md-12 col-lg-12 footer">
+
+  <!--<div class="col-xs-12 col-md-3 col-lg-3">
     <a href="#myTopnav"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-21.png' %}" /></a>
+  </div>-->
+
+  <div class="col-xs-12 col-md-3 col-lg-3">
+    <a href="http://www.uc.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/logo_uc.jpg' %}" id="logo_uc"/></p></a>
   </div>
 
-  <div class="col-md-1">
-    <a href="http://www.uc.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-22.png' %}" /></a>
+  <div class="col-xs-4 col-md-3 col-md-3">
+    <a href="http://ocuc.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-23.png' %}" id="logo_ocuc"/></p></a>
+  </div>
+  <div class="col-xs-4 col-md-3 col-md-3">
+    <a href="http://www.cigiden.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-24.png' %}" id="logo_cigiden"/></p></a>
   </div>
 
-  <div class="col-md-3">
-    <a href="http://ocuc.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-23.png' %}" /></a>
-  </div>
-  <div class="col-md-3">
-    <a href="http://www.cigiden.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-24.png' %}" /></a>
+  <div class="col-xs-4 col-md-3 col-md-3">
+    <a href="http://www.cedeus.cl/"><p style="text-align:-webkit-center;"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-25.png' %}" id="logo_cedeus"/></p></a>
   </div>
 
-  <div class="col-md-2">
-    <a href="http://www.cedeus.cl/"><img class="img-responsive logos" src="{% static 'images/logos/iconos_logos-25.png' %}" /></a>
-  </div>
-        </div>
+</div>
 
 
 
