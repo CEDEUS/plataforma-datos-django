@@ -284,8 +284,8 @@ def sube_capas(u,p,i,db):
 			datastores=[]
 	return None
 
-def borrar_capas(capa):
-	capa.objects.all().delete()
+def borrar_capas(ide):
+	Funciona.objects.filter(ide=ide).delete()
 	return None
 
 

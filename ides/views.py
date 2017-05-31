@@ -7,6 +7,9 @@ from django.db.models import Q,Sum
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.mail import send_mail
+from django.utils.crypto import get_random_string
+import hashlib
 #from codigo import suma
 
 timezone.now()
@@ -209,9 +212,45 @@ def user_admin(request):
 
 
 def user_admin_perfil(request):
-	usuarios=Usuarios.objects.all()
+	if request.method == 'POST' and 'user' in request.POST:
+		user = request.POST['user']
+		if user:
+			u=Usuarios.objects.get(usuario=user)
+			return render(request,'admin_perfil.php',{'user':u,})
+	elif request.method == 'POST' and 'editar1' in request.POST:
+		user = request.POST['name']
+		email= request.POST['email']
+		password=hashlib.sha1(request.POST['password'])
+		sesion=request.POST['user_sesion']
+		u=Usuarios.objects.get(usuario=sesion)
+		if password.hexdigest() == u.password:
+			Usuarios.objects.filter(usuario=sesion).update(usuario=user,correo=email)
+			u=Usuarios.objects.get(usuario=user)
+			request.session['user_name']=u.usuario
+			return render(request,'admin_perfil.php',{'user':u,'respuesta':'success'})
+		else:
+			u=Usuarios.objects.get(usuario=user)
+			return render(request,'admin_perfil.php',{'user':u,'respuesta':'error'})
+	elif request.method == 'POST' and 'editar2' in request.POST:
+		sesion=request.POST['user_sesion']
+		pass_old=request.POST['password']
+		pass_new=request.POST['password1']
+		pass_new2=request.POST['password2']
+		u=Usuarios.objects.get(usuario=sesion)
+		if hashlib.sha1(pass_old).hexdigest() == u.password:
+			if pass_new == pass_new2:
+				h = hashlib.sha1(pass_new)
+				Usuarios.objects.filter(usuario=sesion).update(password=h.hexdigest())
+				return render(request,'admin_perfil.php',{'user':u,'respuesta':'success'})
+			else:
+				return render(request,'admin_perfil.php',{'user':u,'respuesta':'error2'})
+		else:
+			return render(request,'admin_perfil.php',{'user':u,'respuesta':'error'})
 
-	return render(request,'admin_perfil.php')
+	else:
+		sesion=request.session['user_name']
+		u=Usuarios.objects.get(usuario=sesion)
+		return render(request,'admin_perfil.php',{'user':u,})
 
 def categoria(request):
 	#ocuc=Capas_ocuc.objects.all()
@@ -230,9 +269,9 @@ def categoria(request):
 		origen=request.GET['origen']
 
 	if origen != 'ORIGEN':
-		capas=Funciona.objects.filter(categoria=x,ide=origen,privacidad='publico').order_by(order,fecha)
+		capas=Funciona.objects.filter(categoria=x,ide=origen,privacidad='publico').order_by(fecha,order)
 	else:
-		capas=Funciona.objects.filter(categoria=x,privacidad='publico').order_by(order,fecha)
+		capas=Funciona.objects.filter(categoria=x,privacidad='publico').order_by(fecha,order)
 
 	page = request.GET.get('page',1)
 	paginator=Paginator(capas,10)		
@@ -285,11 +324,12 @@ def paginando(request):
 
 def login(request):
 	form = PrivForm()
-	if len(request.POST)!=0:
+	if request.method == 'POST' and 'submit' in request.POST:
 		if (request.POST['userName'] and request.POST['userPassword']):
 			if Usuarios.objects.filter(usuario=request.POST['userName']).exists():
 				m=Usuarios.objects.get(usuario=request.POST['userName'])
-				if m.password == request.POST['userPassword']:
+				h = hashlib.sha1(request.POST['userPassword'])
+				if m.password == h.hexdigest():
 					request.session['user_name']=m.usuario
 					request.session.modified = True
 					capas=Funciona.objects.filter(ide=m.centro).order_by('name')
@@ -297,17 +337,43 @@ def login(request):
 					total_centro=Funciona.objects.filter(ide=m.centro).count()
 					return render(request,'admin.php',{'content':capas,'form':form,'total':total,'t_centro':total_centro,'centro':m.centro,'sesion':m.usuario})
 				else:
-					return HttpResponse("Clave incorrecta")
+					return render(request,'login.php',{'respuesta':'error2'})
 			else:
-				return HttpResponse("No existe usuario")
+				return render(request,'login.php',{'respuesta':'error'})
+	elif request.method == 'POST' and 'submit2' in request.POST:
+		email=request.POST['email']
+		if Usuarios.objects.filter(correo=email).exists():
+			final_subject='[Cambio clave PD]'
+			pass_new=get_random_string(length=8)
+			h = hashlib.sha1(pass_new)
+			Usuarios.objects.filter(correo=email).update(password=h.hexdigest())
+			final_message="Su nueva clave es: "+pass_new
+			send_mail(final_subject,final_message,'django@plataformadedatos.cl',[email],fail_silently=False,auth_password='dj4n50*',)
+			return render(request,'login.php',{'respuesta':'success'})
+		else:
+			return render(request,'login.php',{'respuesta':'error3'})
 	else:
 		return render(request,'login.php')
 
 def sesion(request):
 
 	m=Usuarios.objects.get(usuario=request.POST['userName'])
-	if m.password == request.POST['userPassword']:
+	if m.password == hashlib.sha1(request.POST['userPassword']):
 		request.session['user_name']=m.usuario
 		return HttpResponse("Ingreso")
 	else:
 		return HttpResponse("no ingreso")
+
+def send_email(request):
+	name=request.GET['name']
+	email=request.GET['email']
+	motivo=request.GET['motivo']
+	to=request.GET['to']
+	subject=request.GET['subject']
+	message=request.GET['message']
+	final_subject="["+motivo+"]"+subject
+	final_message=" nombre:"+name+"\n email:"+email+"\n mensaje:"+message
+
+	send_mail(final_subject,final_message,'django@plataformadedatos.cl',['contacto@plataformadedatos.cl'],fail_silently=False,auth_password='dj4n50*',)
+	
+	return HttpResponse("Mensaje enviado, muchas gracias.")

@@ -46,10 +46,10 @@ class Command(BaseCommand):
 						logging.error('generic exception: ' + traceback.format_exc())
 
 					if flag:
-						borrar_capas(Funciona)
+						borrar_capas(ide_db)
 						subir=sube_capas(user,password,ide,ide_db)
 						os.system('echo "info %s descargada"' % ide_db)
-						logging.info("info %s descargada, %s",ide_db,now_time)
+						logging.info("info %s descargada, %s",ide_db,now)
 
 			except ValueError:
 					LOG_FILENAME = 'ocuc.log'
@@ -59,5 +59,5 @@ class Command(BaseCommand):
 					now_time=now.time()
 
 					os.system('error: '+ValueError)
-					logging.error("Error: %s time:%s",ValueError,now_time)
+					logging.error("Error: %s time:%s",ValueError,now)
 					pass

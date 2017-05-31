@@ -1,3 +1,4 @@
+{% if request.session.user_name  %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,6 +54,8 @@
 
   <script src="{% static 'js/leaflet-pip.js' %}"></script>
 
+
+
 </head>
 <body>
 
@@ -84,7 +87,6 @@
           <ul class="nav navbar-nav" style="text-align:center;">
             <li class="centros"><a href="#">QUIENES SOMOS</a></li>
             <li class="centros"><a href="#categoria">CATEGORÍAS</a></li>
-            <li class="centros"><a href="#myModal" data-toggle="modal" data-target="#myModal">CONTACTO</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" style="text-align:center;margin-right:0px;">
             <li style="border-bottom-color:#000000;" class="centros"><a href="ide.ocuc.cl">IDEOCUC</a></li>
@@ -93,89 +95,116 @@
           </ul>
         </div><!--/.nav-collapse -->
     </nav>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">FORMULARIO DE CONTACTO</h4>
-      </div>
-      <div class="modal-body">
-        <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">CONTACTO</h3>
-       <div class="form-group">
-         <input type="text" class="form-control" id="nombre" placeholder="Nombre completo*:">
-       </div>
-       <div class="form-group">
-         <input type="password" class="form-control" id="email" placeholder="E-mail*">
-       </div>
-       <div class="form-group">
-         <input type="password" class="form-control" id="asunto" placeholder="Asunto*">
-       </div>
-  
-        <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">MENSAJE</h3>
-         <div class="form-group">
-           <textarea class="form-control" rows="5"></textarea>
-         </div>
-  
-  
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" style="border:0;font- size:22px;color:#3BA9E0;font-family:'open-sans condensed bold';" data-dismiss="modal">CERRAR</button>
-        <button type="submit" class="btn btn-default" style="border:0;font- size:22px;color:#3BA9E0;font-family:'open-sans condensed bold';">ENVIAR<i class="glyphicon   glyphicon-chevron-right"></i></button>
-      </div>
-    </div>
-  </div>
 </div>
-  </div>
 
   <div class="col-xs-12 col-md-12 col-lg-12 col_principal" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
-    <div class="col-md-12" style="border-bottom-style:inset;border-bottom-color:#3ba9e0;padding-bottom:3%;padding-top:3%;">
+    <div class="col-xs-12 col-md-12 col-lg-12" style="border-bottom-style:inset;border-bottom-color:#3ba9e0;padding-bottom:3%;padding-top:3%;">
       
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
-          </div>
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Page 1</a></li>
-            <li><a href="#">Page 2</a></li>
-            <li><a href="#">Page 3</a></li>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="/user_admin/">Privacidad</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{user.usuario}}
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu" style="left:0;">
+                <li>
+                   <form action="/user_admin_perfil/" method="post" style="text-align:center;">
+                     {% csrf_token %}
+                     <input type="hidden" name="user" value="{{sesion}}">
+                      <button class="btn btn-default btn-xs" type="submit" name="editar" style="display:block;width:100%;border-radius:0px;border-color:#ffffff;">Editar perfil
+                  </form>
+                </li>
+                <li>
+                   <form action="/" method="post" style="text-align:center;">
+                     {% csrf_token %}
+                     <input type="hidden" name="cerrar" value="cerrar">
+                      <button class="btn btn-default btn-xs" type="submit" name="submit" style="display:block;width:100%;border-radius:0px;border-color:#ffffff;">Cerrar Sesión
+                  </form>
+                </li>
+              </ul>
+            </li>
           </ul>
-       </div>
+        </div>
       </nav>
 
 
-    <div class="col-md-12">
-    <h1>PERFIL</h1>
+    <div class="col-xs-12 col-md-12 col-lg-12">
+      {% if respuesta == 'success'%}
+        <div class="alert alert-success alert-dismissable fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>¡Éxito! </strong> información modificada correctamente.
+        </div>
+      {% elif respuesta == 'error' %}
+        <div class="alert alert-danger alert-dismissable fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>¡Error! </strong>contraseña inválida.
+        </div>
+      {% elif respuesta == 'error2' %}
+        <div class="alert alert-danger alert-dismissable fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>¡Error! </strong>Contraseña nueva no coincide.
+        </div>
+      {% else %}
 
+      {% endif %}
     <!--<div class="col-md-3">
     <img src="{% static 'images/male_user_icon.png' %}" alt="Plataforma" style="width:75%;">
     </div>-->
-    <div class="col-md-12">
-    <table class="table table-borderless">
-    <tbody style="border-style:hidden;">
-      <tr style="border-style:hidden;">
-        <td><strong style="font-size:14px;">USUARIO:</strong></td>
-        <td style="font-size:14px;">Ricardo Ardiles</td>
-        <td><strong style="font-size:14px;">CENTRO:</strong></td>
-        <td style="font-size:14px;"><strong style="color:#337ab7;">CEDEUS</strong></td>
-      </tr>
-      <tr style="border-style:hidden;">
-        <td><strong style="font-size:14px;">CORREO:</strong></td>
-        <td style="font-size:14px;">ricardo.ardilesg@gmail.com</td>
-        <td><strong style="font-size:14px;">PERFIL:</strong></td>
-        <td style="font-size:14px;">Administrador</td>
-      </tr>
-    </tbody>
-  </table>
-  <button type="button" class="btn btn-primary">Editar información</button>
-  </div>
-  <!--<button type="button" class="btn btn-primary">Editar</button>-->
+    <div class="col-xs-12 col-md-2 col-lg-2">
+    </div>
+    <div class="col-xs-12 col-md-8 col-lg-8">
+
+        <!-- Begin # Login Form -->
+        <div id="form_principal">
+        <form id="principal" method="post" action="/user_admin_perfil/">
+          {% csrf_token %}
+          <div class="form-group">
+                <p style="margin-bottom:0px;margin-top:10px;margin-left:1px;">Usuario:</p>
+                   <input name="name" class="form-control" type="text" value="{{user.usuario}}" required>
+                   <input name="user_sesion" class="form-control" type="hidden" value="{{user.usuario}}" required>
+                <p style="margin-bottom:0px;margin-top:10px;margin-left:1px;">Correo:</p>   
+                   <input name="email" class="form-control" type="text" value="{{user.correo}}" required>
+                   <br>
+                   <input name="password" class="form-control" type="password" placeholder="Ingrese clave para editar" required>
+          </div>
+                 <div>
+                     <button type="submit" name="editar1" class="btn btn-primary btn-md btn-block">Editar</button>
+                 </div>
+        </form>
+                <div>
+                  <button id="cambiar_contrasena" type="button" class="btn btn-link">Cambiar contraseña</button>    
+                </div>
+      </div>
+
+        <div id="form_password" style="display:none;">
+        <form id="password_form" method="post" action="/user_admin_perfil/">
+          {% csrf_token %}
+          <div class="form-group">
+                
+                   <input name="password" class="form-control" type="password" placeholder="Ingrese contraseña actual" required>
+                   <input name="user_sesion" class="form-control" type="hidden" value="{{user.usuario}}" required>
+                   <br>
+                   <input name="password1" class="form-control" type="password" placeholder="Ingrese nueva contraseña" required>
+                   <br>
+                   <input name="password2" class="form-control" type="password" placeholder="Repita nueva contraseña" required>
+          </div>
+                 <div>
+                     <button type="submit" name="editar2" class="btn btn-primary btn-md btn-block">Editar</button>
+                 </div>
+        </form>
+                <div>
+                  <button id="volver_atras" type="button" class="btn btn-link">Regresar a perfil</button>    
+                </div>
+      </div>
+
+    </div>
+    <div class="col-xs-12 col-md-2 col-lg-2">
+    </div>
+
+
     </div>
 
     </div>
@@ -224,9 +253,28 @@ $(function() {
     $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 500, 'linear');
   });
 });
+
 </script>
 
+<script>
+
+$('#cambiar_contrasena').click( function () { 
+  $('#form_principal').hide();
+  $('#form_password').show();
+
+});
+
+$('#volver_atras').click( function () { 
+  $('#form_principal').show();
+  $('#form_password').hide();
+
+});
+
+</script>
 
 
 </body>
 </html>
+{% else %}
+Debe iniciar sesion para ver el contenido
+{% endif %}

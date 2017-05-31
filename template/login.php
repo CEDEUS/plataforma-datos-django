@@ -56,6 +56,11 @@
 
   <script src="{% static 'js/leaflet-pip.js' %}"></script>
 
+
+  <!-- modal -->
+  <link href="{% static 'css/modal.css' %}" rel="stylesheet">
+  <script src="{% static 'js/modal.js' %}"></script>
+
 </head>
 <body>
 
@@ -145,7 +150,7 @@
           <div class="col-xs-12 col-md-4 col-lg-4">
           </div>
           <div class="col-xs-12 col-md-4 col-lg-4">
-            <form action="/login/" method="post">
+            <!--<form action="/login/" method="post">
               {% csrf_token %}
               <div class="form-login">
               <p style="text-align:center;">
@@ -159,7 +164,76 @@
                   <button type="submit" value="Entrar"  name="submit" class="btn btn-primary">ENTRAR <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>
                 </div>
               </div>
-            </form>
+            </form>-->
+      {% if respuesta == 'success'%}
+        <div class="alert alert-success alert-dismissable fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>¡Éxito! </strong> Correo enviado con nueva clave.
+        </div>
+      {% elif respuesta == 'error' %}
+        <div class="alert alert-danger alert-dismissable fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>¡Error! </strong>Usuario no existe.
+        </div>
+      {% elif respuesta == 'error2' %}
+        <div class="alert alert-danger alert-dismissable fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>¡Error! </strong>Contraseña incorrecta.
+        </div>
+      {% elif respuesta == 'error3' %}
+        <div class="alert alert-danger alert-dismissable fade in">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>¡Error! </strong>Correo no existe, contacte soporte.
+        </div>
+
+      {% else %}
+
+      {% endif %}
+
+
+        <div id="form_principal">
+        <form id="principal" method="post" action="/login/">
+          {% csrf_token %}
+              <div class="form-login">
+              <p style="text-align:center;">
+                <img src="{% static 'images/logos/iconos_logos-21.png' %}" id="logo" alt="Plataforma">
+              </p>
+                <input type="text" name="userName" class="form-control input-sm chat-input" placeholder="Usuario" required>
+                </br>
+                <input type="password" name="userPassword" class="form-control input-sm chat-input" placeholder="Contraseña" required>
+                </br>
+              
+                 <div class="wrapper">
+                  <button type="submit" value="Entrar"  name="submit" class="btn btn-primary">ENTRAR <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></button>
+                  <div>
+                  <button id="olvide_contrasena" type="button" class="btn btn-link">Olvidé mi contraseña</button>    
+                  </div>
+                 </div>
+                </div>
+        </form>
+        </div>
+
+        <div id="form_secundario" style="display:none;">
+        <form id="secundario" method="post" action="/login/">
+          {% csrf_token %}
+              <div class="form-login">
+              <p style="text-align:center;">
+                <img src="{% static 'images/logos/iconos_logos-21.png' %}" id="logo" alt="Plataforma">
+              </p>
+              <p style="padding-left:1px;">Se enviará una nueva clave:</p>
+                <input type="email" name="email" class="form-control input-sm chat-input" placeholder="Ingrese correo" required>
+                </br>
+                 <div class="wrapper">
+                  <button type="submit" value="Entrar"  name="submit2" class="btn btn-primary">ENVIAR CORREO <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+                  <div>
+                  <button id="regresar" type="button" class="btn btn-link">Regresar, ya me acordé</button>    
+                  </div>
+                 </div>
+                </div>
+        </form>
+        </div>
+
+
           </div>
           <div class="col-xs-12 col-md-4 col-lg-4">
           </div>
@@ -201,7 +275,21 @@ $(function() {
 });
 </script>
 
+<script>
 
+$('#olvide_contrasena').click( function () { 
+  $('#form_principal').hide();
+  $('#form_secundario').show();
+
+});
+
+$('#regresar').click( function () { 
+  $('#form_principal').show();
+  $('#form_secundario').hide();
+
+});
+
+</script>
 
 </body>
 </html>

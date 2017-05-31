@@ -53,6 +53,10 @@
 
   <script src="{% static 'js/leaflet-pip.js' %}"></script>
 
+  <!-- modal -->
+  <link href="{% static 'css/modal.css' %}" rel="stylesheet">
+  <script src="{% static 'js/modal.js' %}"></script>
+
 
 <!-- Piwik -->
 <script type="text/javascript">
@@ -102,7 +106,7 @@
             {% if request.session.user_name  %}
             <li class="centros"><a href="/user_admin/">ADMIN</a></li>
             {% endif%}
-            <li class="centros"><a href="#myModal" data-toggle="modal" data-target="#myModal">CONTACTO</a></li>
+            <li class="centros"><a href="#" class="" role="" data-toggle="modal" data-target="#login-modal">CONTACTO</a></li>
             <li class="centros"><a href="#categoria">CATEGORÍAS</a></li>
             <!--<li class="centros"><a href="#">QUIENES SOMOS</a></li>-->
           </ul>
@@ -115,59 +119,63 @@
     </nav>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">FORMULARIO DE CONTACTO</h4>
-      </div>
-      <div class="modal-body">
-        <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">CONTACTO</h3>
-       <div class="form-group">
-         <input type="text" class="form-control" id="nombre" placeholder="Nombre*:">
-       </div>
-       <div class="form-group">
-         <input type="text" class="form-control" id="email" placeholder="E-mail de contacto*">
-       </div>
-        <div class="form-group">
-          <select class="form-control" id="sel1">
-            <option>Motivo:</option>
-            <option>Consultas</option>
-            <option>Felicitaciones</option>
-            <option>Reclamos</option>
-            <option>Sugerencias</option>
-          </select>
-        </div>  
-        <div class="form-group">
-          <select class="form-control" id="sel1">
-            <option>Dirigido a:</option>
-            <option>Administrador</option>
-            <option>Soporte</option>
-            <option>CEDEUS</option>
-            <option>CIGIDEN</option>
-            <option>OCUC</option>
-          </select>
-        </div>        
-       <div class="form-group">
-         <input type="password" class="form-control" id="asunto" placeholder="Asunto*">
-       </div>
-
-        <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">MENSAJE</h3>
-         <div class="form-group">
-           <textarea class="form-control" rows="5"></textarea>
-         </div>
-  
-  
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" style="border:0;font- size:22px;color:#3BA9E0;font-family:'open-sans condensed bold';" data-dismiss="modal">CERRAR</button>
-        <button type="submit" class="btn btn-default" style="border:0;font- size:22px;color:#3BA9E0;font-family:'open-sans condensed bold';">ENVIAR<i class="glyphicon   glyphicon-chevron-right"></i></button>
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" align="center">
+          <img class="img-circle" id="img_logo" src="{% static 'images/logos/iconos_logos-29.png' %}">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
+        </div>
+                
+                <!-- Begin # DIV Form -->
+                <div id="div-forms">
+                
+                    <!-- Begin # Login Form -->
+                    <form id="login-form" method="post" action="/send_email">
+                    <div class="modal-body">
+                <div id="div-login-msg">
+                                <div id="icon-login-msg" class="glyphicon glyphicon-chevron-right"></div>
+                                <span id="text-login-msg">Complete el formulario de contacto</span>
+                            </div>
+                <input id="name" class="form-control" type="text" placeholder="Nombre*" required>
+                <input id="email" class="form-control" type="text" placeholder="Email de contacto*" required>
+                <p style="margin-bottom:0px;margin-top:10px;margin-left:1px;">Motivo:</p>
+                <select class="form-control" id="motivo" required>
+                  <option>Consultas</option>
+                  <option>Felicitaciones</option>
+                  <option>Reclamos</option>
+                  <option>Sugerencias</option>
+                  <option>Otro</option>
+                </select>
+                <p style="margin-bottom:0px;margin-top:10px;margin-left:1px;">Dirigido a:</p>
+                <select class="form-control" id="to" required>
+                  <option>Soporte</option>
+                  <option>CEDEUS</option>
+                  <option>CIGIDEN</option>
+                  <option>OCUC</option>
+                </select>
+                <input id="subject" class="form-control" type="text" placeholder="Asunto*" required>
+                <p style="margin-bottom:0px;margin-top:10px;margin-left:1px;">Mensaje:</p>
+                <textarea id="message" class="form-control" rows="5" required></textarea>
+                  </div>
+                <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+                            </div>
+                  <div>
+                            </div>
+                </div>
+                    </form>
+                    <!-- End # Login Form -->       
+                </div>
+                <!-- End # DIV Form -->
+                
       </div>
     </div>
   </div>
+<!--modal-->
 </div>
   </div>
 

@@ -16,6 +16,8 @@ class Funciona(models.Model):
 	workspace=models.CharField(max_length=200,default='',null=True)
 	ide=models.CharField(max_length=200,default='',null=True)
 	privacidad=models.CharField(max_length=200,default='',null=True)
+	def __unicode__(self):
+		return self.name
 
 class Privacidad(models.Model):
 	nombre=models.CharField(max_length=200,null=True)

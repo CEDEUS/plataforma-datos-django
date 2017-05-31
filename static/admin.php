@@ -149,16 +149,17 @@
               <span class="caret"></span></a>
               <ul class="dropdown-menu" style="left:0;">
                 <li>
-                   <form action="/" method="post" style="text-align:center;">
+                   <form action="/user_admin_perfil/" method="post" style="text-align:center;">
                      {% csrf_token %}
-                      <button class="btn btn-default btn-xs" type="submit" name="editar" style="display:block;width:100%;border-radius:0px;">Editar perfil
+                     <input type="hidden" name="user" value="{{sesion}}">
+                      <button class="btn btn-default btn-xs" type="submit" name="editar" style="display:block;width:100%;border-radius:0px;border-color:#ffffff;">Editar perfil
                   </form>
                 </li>
                 <li>
                    <form action="/" method="post" style="text-align:center;">
                      {% csrf_token %}
                      <input type="hidden" name="cerrar" value="cerrar">
-                      <button class="btn btn-default btn-xs" type="submit" name="submit" style="display:block;width:100%;border-radius:0px;">Cerrar Sesión
+                      <button class="btn btn-default btn-xs" type="submit" name="submit" style="display:block;width:100%;border-radius:0px;border-color:#ffffff;">Cerrar Sesión
                   </form>
                 </li>
               </ul>
@@ -166,7 +167,6 @@
           </ul>
         </div>
       </nav>
-
       <div class="col-xs-12 col-md-12 col-lg-12" style="padding:0;">
 
       <!--<form action="/user_admin/" method="post">
