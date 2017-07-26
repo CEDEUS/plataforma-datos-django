@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from ides.views import index,buscador,sesion,send_email,paginando,login,resultado,add_capa,codigo,categoria,user_admin,user_admin_perfil
+from ides.views import index,buscador,quienes_somos,sesion,send_email,paginando,login,resultado,add_capa,codigo,categoria,user_admin,user_admin_perfil
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 import settings
@@ -24,6 +24,7 @@ import settings
 urlpatterns = patterns('',
     url(r'^admin/', admin.site.urls),
     url(r'^$',index),
+    url(r'^quienes_somos',quienes_somos),  
     url(r'^buscador',buscador),    
     url(r'^resultado/$',resultado),
     url(r'^codigo/',codigo),

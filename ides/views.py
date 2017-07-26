@@ -4,7 +4,8 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from ides.models import Categorias,Funciona,Privacidad,Usuarios
 from ides.forms import PrivForm,SearchForm
 from django.db.models import Q,Sum
-from datetime import datetime, timedelta
+import datetime
+from dateutil.relativedelta import *
 from django.utils import timezone
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
@@ -36,8 +37,12 @@ def index(request):
 	categorias=Categorias.objects.all().order_by('nombre')
 	return render(request,'index.php',{'categorias':categorias})
 
+def quienes_somos(request):
+	return render(request,'quienes_somos.php')
+
 @xframe_options_exempt
 def buscador(request):
+	today=datetime.date.today()
 	x=''
 	resultado=Funciona.objects.filter(privacidad='publico').order_by('-fecha')
 	recientes=Funciona.objects.all().order_by('-fecha')[:5]
@@ -49,22 +54,22 @@ def buscador(request):
 			if 'categoria' in request.GET:
 				categoria=request.GET['categoria']
 			else:
-				categoria=''
+				categoria='CATEGORIA'
 
 			if 'origen' in request.GET:
 				origen=request.GET['origen']
 			else:
-				origen=''
+				origen='ORIGEN'
 
 			if 'orden' in request.GET:
 				orden=request.GET['orden']
 			else:
-				orden=''
+				orden='titulo'
 
 			if 'fecha' in request.GET:
 				fecha=request.GET['fecha']
 			else:
-				fecha=''
+				fecha='-fecha'
 
 			x=b
 			x=x.replace('+',' ')
@@ -114,6 +119,7 @@ def buscador(request):
 			else:
 				resultado=Funciona.objects.filter(privacidad='publico').order_by(fecha,orden)
 
+
 		page = request.GET.get('page',1)
 		paginator=Paginator(resultado,10)		
 		try:
@@ -130,6 +136,28 @@ def buscador(request):
 		start_index = index - 5 if index >= 5 else 0
 		end_index = index + 5 if index <= max_index - 5 else max_index
 		page_range = list(paginator.page_range)[start_index:end_index]
+
+		for a in capas:
+			relativo=relativedelta(today,a.fecha.date())
+			anos=""
+			meses=""
+			dias=""
+	
+			if relativo.years == 1:
+				anos=str(relativo.years)+' a\xc3\xb1o'
+			if relativo.months == 1:
+				meses=str(relativo.months)+' mes'
+			if relativo.days == 1:
+				dias=str(relativo.days)+' d\xc3\xada '
+	
+			if relativo.years > 1:
+				anos=str(relativo.years)+' a\xc3\xb1os'
+			if relativo.months > 1:
+				meses=str(relativo.months)+' meses'
+			if relativo.days > 1:
+				dias=str(relativo.days)+' d\xc3\xadas'
+	
+			a.fecha='hace '+anos+' '+meses+' '+dias+'.'
 
 		return render(request,'buscador.php',{'content':capas,'recientes':recientes,'bus':x,'categoria':categoria,'origen':origen,'orden':orden,'fecha':fecha,'page_range': page_range,'max_index':max_index})		
 
@@ -150,6 +178,29 @@ def buscador(request):
 		start_index = index - 5 if index >= 5 else 0
 		end_index = index + 5 if index <= max_index - 5 else max_index
 		page_range = list(paginator.page_range)[start_index:end_index]
+
+
+		for a in capas:
+			relativo=relativedelta(today,a.fecha.date())
+			anos=""
+			meses=""
+			dias=""
+	
+			if relativo.years == 1:
+				anos=str(relativo.years)+' a\xc3\xb1o'
+			if relativo.months == 1:
+				meses=str(relativo.months)+' mes'
+			if relativo.days == 1:
+				dias=str(relativo.days)+' d\xc3\xada '
+	
+			if relativo.years > 1:
+				anos=str(relativo.years)+' a\xc3\xb1os'
+			if relativo.months > 1:
+				meses=str(relativo.months)+' meses'
+			if relativo.days > 1:
+				dias=str(relativo.days)+' d\xc3\xadas'
+	
+			a.fecha='hace '+anos+' '+meses+' '+dias+'.'
 
 		return render(request,'buscador.php',{'content':capas,'recientes':recientes,'bus':x,'page_range': page_range,'max_index':max_index})
 
@@ -292,7 +343,32 @@ def categoria(request):
 
 	descripcion=Categorias.objects.get(nombre=x)
 
-	return render(request,'categoria.php',{'content':cap,'descripcion':descripcion.descripcion,'cat':x,'order':order,'fecha':fecha,'origen':origen,'page_range': page_range,'max_index':max_index})
+	today=datetime.date.today()
+
+	for a in cap:
+		relativo=relativedelta(today,a.fecha.date())
+		anos=""
+		meses=""
+		dias=""
+
+		if relativo.years == 1:
+			anos=str(relativo.years)+' a\xc3\xb1o'
+		if relativo.months == 1:
+			meses=str(relativo.months)+' mes'
+		if relativo.days == 1:
+			dias=str(relativo.days)+' d\xc3\xada '
+
+		if relativo.years > 1:
+			anos=str(relativo.years)+' a\xc3\xb1os'
+		if relativo.months > 1:
+			meses=str(relativo.months)+' meses'
+		if relativo.days > 1:
+			dias=str(relativo.days)+' d\xc3\xadas'
+
+		a.fecha='hace '+anos+' '+meses+' '+dias+'.'
+
+	caa=Categorias.objects.get(nombre=x)
+	return render(request,'categoria.php',{'content':cap,'descripcion':descripcion.descripcion,'cat':x,'order':order,'fecha':fecha,'caa':caa,'origen':origen,'page_range': page_range,'max_index':max_index})
 
 
 def codigo(request):    

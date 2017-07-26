@@ -16,3 +16,59 @@ ERROR:root:HTTPError = 500
 INFO:root:info OCUC descargada, 2017-05-29 02:00:42.605552
 INFO:root:info OCUC descargada, 2017-05-30 02:00:41.332633
 INFO:root:info OCUC descargada, 2017-05-31 02:01:01.002297
+INFO:root:info OCUC descargada, 2017-06-01 02:01:09.194214
+INFO:root:info OCUC descargada, 2017-06-02 02:01:04.288511
+INFO:root:info OCUC descargada, 2017-06-03 02:00:53.842538
+INFO:root:info OCUC descargada, 2017-06-04 02:00:50.772462
+INFO:root:info OCUC descargada, 2017-06-05 02:01:19.192711
+INFO:root:info OCUC descargada, 2017-06-06 02:01:13.350434
+ERROR:root:HTTPError = 500
+INFO:root:info OCUC descargada, 2017-06-08 02:01:29.988292
+INFO:root:info OCUC descargada, 2017-06-09 02:01:01.697304
+INFO:root:info OCUC descargada, 2017-06-10 02:01:00.258415
+INFO:root:info OCUC descargada, 2017-06-11 02:01:18.260693
+INFO:root:info OCUC descargada, 2017-06-12 02:01:15.675727
+INFO:root:info OCUC descargada, 2017-06-13 02:01:01.790266
+ERROR:root:HTTPError = 500
+INFO:root:info OCUC descargada, 2017-06-15 02:00:52.918378
+INFO:root:info OCUC descargada, 2017-06-16 02:01:00.831685
+INFO:root:info OCUC descargada, 2017-06-17 02:01:03.684109
+INFO:root:info OCUC descargada, 2017-06-18 02:00:59.813025
+INFO:root:info OCUC descargada, 2017-06-19 02:00:57.515062
+ERROR:root:HTTPError = 500
+INFO:root:info OCUC descargada, 2017-06-21 02:00:09.279254
+INFO:root:info OCUC descargada, 2017-06-22 02:00:10.536636
+INFO:root:info OCUC descargada, 2017-06-23 02:00:09.494226
+ERROR:root:URLError = [Errno -2] Name or service not known
+ERROR:root:URLError = [Errno -2] Name or service not known
+ERROR:root:URLError = [Errno -2] Name or service not known
+INFO:root:info OCUC descargada, 2017-06-27 02:00:07.222294
+INFO:root:info OCUC descargada, 2017-06-28 02:00:08.932709
+INFO:root:info OCUC descargada, 2017-06-29 02:00:08.595606
+INFO:root:info OCUC descargada, 2017-06-30 02:00:09.460112
+INFO:root:info OCUC descargada, 2017-07-01 02:00:08.485934
+INFO:root:info OCUC descargada, 2017-07-02 02:00:07.246258
+INFO:root:info OCUC descargada, 2017-07-03 02:05:09.148713
+INFO:root:info OCUC descargada, 2017-07-04 02:01:51.284388
+INFO:root:info OCUC descargada, 2017-07-05 02:01:51.826660
+INFO:root:info OCUC descargada, 2017-07-06 02:01:05.007747
+INFO:root:info OCUC descargada, 2017-07-07 02:01:20.280391
+INFO:root:info OCUC descargada, 2017-07-08 02:01:05.671196
+INFO:root:info OCUC descargada, 2017-07-09 02:01:26.713171
+INFO:root:info OCUC descargada, 2017-07-10 02:01:05.923239
+INFO:root:info OCUC descargada, 2017-07-11 02:01:16.718086
+INFO:root:info OCUC descargada, 2017-07-12 02:01:01.219197
+INFO:root:info OCUC descargada, 2017-07-13 02:01:21.834838
+INFO:root:info OCUC descargada, 2017-07-14 02:01:17.246728
+INFO:root:info OCUC descargada, 2017-07-15 02:06:22.629370
+INFO:root:info OCUC descargada, 2017-07-16 02:01:20.928300
+INFO:root:info OCUC descargada, 2017-07-17 02:00:59.236225
+INFO:root:info OCUC descargada, 2017-07-18 02:01:10.566189
+INFO:root:info OCUC descargada, 2017-07-19 02:01:04.220921
+INFO:root:info OCUC descargada, 2017-07-20 02:01:04.719814
+INFO:root:info OCUC descargada, 2017-07-21 02:00:46.155287
+INFO:root:info OCUC descargada, 2017-07-22 02:01:18.244319
+INFO:root:info OCUC descargada, 2017-07-23 02:01:08.722618
+INFO:root:info OCUC descargada, 2017-07-24 02:01:04.725061
+INFO:root:info OCUC descargada, 2017-07-25 02:01:04.380918
+INFO:root:info OCUC descargada, 2017-07-26 02:01:22.575172

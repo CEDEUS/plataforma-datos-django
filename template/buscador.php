@@ -1,6 +1,4 @@
-{% load analytical %}
-{% load piwik %}
-{% piwik %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,7 +97,7 @@
           {% endif%}
           <li class="centros"><a href="#" class="" role="" data-toggle="modal" data-target="#login-modal">CONTACTO</a></li>
           <li class="centros"><a href="/#categoria">CATEGORÍAS</a></li>
-          <li class="centros"><a href="/">QUIENES SOMOS</a></li>
+          <li class="centros"><a href="/quienes_somos">QUIENES SOMOS</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" style="text-align:center;margin-right:0px;">
           <li style="border-bottom-color:#000000;" class="centros"><a href="http://ide.ocuc.cl">IDE-OCUC</a></li>
@@ -114,7 +112,7 @@
       <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header" align="center">
-          <img class="img-circle" id="img_logo" src="{% static 'images/logos/iconos_logos-29.png' %}">
+          <img class="img-circle" id="img_logo" src="{% static 'images/logos/iconos_logos-28.png' %}">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           </button>
@@ -166,22 +164,48 @@
       </div>
     </div>
   </div>
+
+
+<div class="modal fade" id="url-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" align="center">
+          <img class="img-circle" id="img_logo" src="{% static 'images/logos/iconos_logos-29.png' %}">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
+        </div>
+                
+                <!-- Begin # DIV Form -->
+                <div id="div-forms">
+                
+                    <!-- Begin # Login Form -->
+                    <p id="append" style="text-align:center;font-size:30px;">Será redirigido...</p>
+                    <p id="contador" style="text-align:center;font-size:30px;"></p>
+                    <!-- End # Login Form -->       
+                </div>
+                <!-- End # DIV Form -->
+                
+      </div>
+    </div>
+  </div>  
 <!--modal-->
 </div>
 </div>
 
 
 <div class="col-xs-12 col-md-12 col-lg-12 col_principal" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
- <form action="/buscador/" method="GET" role="form">
+
    <div class="form-group">
     <div class="col-xs-12 col-md-12 col-lg-12" style="padding-left:0px;padding-right:0px;">
-     <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">Buscar:
-     </h3>
-     <div id="custom-search-input" style="margin-bottom:20px;">
+     <!--<h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">Buscar:
+     </h3>-->
+     <div id="custom-search-input" style="margin-top:25px;">
       <div class="input-group col-xs-12 col-md-12 col-lg-12">
-        <form method="get" action="/buscador">
+        <form action="/buscador/" method="GET" role="form">
+          <div class="input-group">
           {% if bus == '' %}
-          <input name="busqueda" type="text" class="form-control input-lg" placeholder="Palabra clave" />
+          <input name="busqueda" type="text" class="form-control input-lg" placeholder="Ingrese búsqueda" />
           {% else %}
           <input name="busqueda" type="text" class="form-control input-lg" placeholder="{{bus}}" />
           {% endif %}               
@@ -190,13 +214,23 @@
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                   </span>-->
-                </form>
+                <span class="input-group-btn">
+                <button class="btn btn-info btn-lg" type="submit" name="search">Buscar <i class="glyphicon glyphicon-search"></i></button>
+          </span>
+          </div>
+                
               </div>
             </div>
           </div>
+    </div>
+</div>
+
+<div class="col-xs-12 col-md-12 col-lg-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
+  <div class="col-xs-12 col-md-12 col-lg-12" style="padding:0px;">
+    <div class="col-xs-12 col-md-3 col-lg-3" style="margin-bottom:20px;padding:0px;">
 
           <div class="col-xs-12 col-md-12 col-lg-12" style="padding-left:0px;padding-right:0px;">
-            <div class="col-xs-12 col-md-6 col-lg-6" style="padding-left:0px;padding-right:0px;">
+            <div class="col-xs-12 col-md-12 col-lg-12" style="padding-left:0px;padding-right:0px;">
              <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';margin:0;">FILTRO</h3>
              <div id="custom-search-input" style="margin-bottom:20px;">
               <div class="input-group col-xs-12 col-md-12 col-lg-12" style="padding-bottom:2%;">
@@ -233,7 +267,7 @@
               </div>
             </div>
           </div>
-          <div class="col-xs-12 col-md-6 col-lg-6" style="padding-right:0px;padding-left:0px;">
+          <div class="col-xs-12 col-md-12 col-lg-12" style="padding-right:0px;padding-left:0px;">
            <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';margin:0;">ORDEN</h3>
            <div id="custom-search-input" style="margin-bottom:20px;">
             <div class="input-group col-xs-12 col-md-12 col-lg-12" style="padding-bottom:2%;">
@@ -244,197 +278,118 @@
             </div>
             <div class="input-group col-xs-12 col-md-12 col-lg-12">
               <select name="fecha" class="form-control">
-                <option value="fecha">MÁS ANTIGUO</option>
                 <option value="-fecha">MÁS RECIENTE</option>
+                <option value="fecha">MÁS ANTIGUO</option>
               </select>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-md-12 col-lg-12" style="padding:0;">
-        <div class="col-xs-12 col-md-10 col-lg-10" style="padding:0;">
-        </div>
-        <div class="col-xs-12 col-md-2 col-lg-2" style="padding:0;">
-          <button class="btn btn-info btn-lg" type="submit" style="display:block;width:100%;">
+          <button class="btn btn-info btn-lg" type="submit" name="filter" style="display:block;width:100%;">
             FILTRAR <i class="glyphicon glyphicon-search"></i>
           </button>
-        </div>
-      </div>
-    </div>
-
-  </form>
-</div>
-
-<div class="col-xs-12 col-md-12 col-lg-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
-  <div class="col-xs-12 col-md-12 col-lg-12" style="border-bottom-style:outset;border-bottom-color:#3BA9E0;padding:0px;">
-    <div class="col-xs-12 col-md-4 col-lg-4" style="margin-bottom:20px;">
-     <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';text-align:center;border-bottom-style:outset;border-bottom-color:#3BA9E0;margin-top:0px;margin-bottom:15px;">MÁS RECIENTES</h3>
-     
-     {% for item in recientes%}
-
-     <div class="col-xs-12 col-md-12 col-lg-12" style="border-bottom-style:outset;border-bottom-color:#3BA9E0;padding:0px;">
-
-       {%if item.ide == "OCUC"%}
-       <a href="http://ide.ocuc.cl/layers/{{item.workspace}}:{{item.name}}">
-         {%elif item.ide == "CEDEUS"%}
-         <a href="http://datos.cedeus.cl/layers/{{item.workspace}}:{{item.name}}">             
-           {%elif item.ide == "CIGIDEN"%}
-           <a href="http://ide.cigiden.cl/layers/{{item.workspace}}:{{item.name}}">
-            {%endif%}
-            <h1 style="color:#000000;font-size:14px;font-family:open-sans condensed bold;text-align:center;">{{item.titulo}}</h1>
-          </a>
-
-          <div class="col-xs-12 col-md-12 col-lg-12" style="padding:0px;">
-            <p style="text-align:center;">
-             {%if item.categoria == "Fronteras"%}
-             <img src="{% static "images/iconos/Icono02_fronteras.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
-             {%elif item.categoria == "Salud"%}
-             <img src="{% static "images/iconos/iconos09_salud.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
-             {%elif item.categoria == "Economia"%}
-             <img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
-             {%elif item.categoria == "Elevación"%}
-             <img src="{% static "images/iconos/iconos05_elevacion.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
-             {%elif item.categoria == "Medio ambiente"%}
-             <img src="{% static "images/iconos/iconos06_mediambiente.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
-             {%elif item.categoria == "Agricultura"%}
-             <img src="{% static "images/iconos/iconos07_agri.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
-             {%elif item.categoria == "Información geocientífica"%}
-             <img src="{% static "images/iconos/iconos_logos-36.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
-             {%elif item.categoria == "Climatología"%}
-             <img src="{% static "images/iconos/iconos03_meteorolo.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
-             {%elif item.categoria == "Imágenes satelitales"%}
-             <img src="{% static "images/iconos/iconos10_imagesatelital.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
-             {%elif item.categoria == "Imágenes satelitales"%}
-             <img src="{% static "images/iconos/iconos10_imagesatelital.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">
-             {%elif item.categoria == "Inteligencia militar"%}
-             <img src="{% static "images/iconos/iconos12_intmilitar.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">             
-             {%elif item.categoria == "Localización"%}
-             <img src="{% static "images/iconos/iconos13_localizacion.png" %}" alt="icono" style="width:50%;background-color:#337ab7;"> 
-             {%elif item.categoria == "Oceanos"%}
-             <img src="{% static "images/iconos/iconos14_oceanos.png" %}" alt="icono" style="width:50%;background-color:#337ab7;"> 
-             {%elif item.categoria == "Biota"%}
-             <img src="{% static "images/iconos/iconos20_biota.png" %}" alt="icono" style="width:50%;background-color:#337ab7;"> 
-             {%elif item.categoria == "Sociedad"%}
-             <img src="{% static "images/iconos/iconos16_sociedad.png" %}" alt="icono" style="width:50%;background-color:#337ab7;">    
-             {%elif item.categoria == "Infraestructura"%}
-             <img src="{% static "images/iconos/iconos17_infraestructura.png" %}" alt="icono" style="width:50%;background-color:#337ab7;"> 
-             {%elif item.categoria == "Transporte"%}
-             <img src="{% static "images/iconos/iconos18_transporte.png" %}" alt="icono" style="width:50%;background-color:#337ab7;"> 
-             {%elif item.categoria == "Telecomunicaciones"%}
-             <img src="{% static "images/iconos/iconos19_telecomunicaciones.png" %}" alt="icono" style="width:50%;background-color:#EDEDED;"> 
-             {%elif item.categoria == "Planificación catastro"%}
-             <img src="{% static "images/iconos/iconos15_planificacioncatastros.png" %}" alt="icono" style="width:50%;background-color:#EDEDED;"> 
-             {%else%}
-             <img src="{% static "images/iconos/Icono01_buscador.png" %}" alt="icono" style="width:50%;background-color:#EDEDED;"> 
-           </p>
-           {%endif%}
-         </div>
-         <p style="text-align:center;">
-          Categoría: <strong>{{item.categoria}}</strong><br>
-          Fuente: 
-          {%if item.ide == "CIGIDEN"%}
-          <strong style="color:#ff5000;">
-           {%elif item.ide == "OCUC"%}
-           <strong style="color:#000000;">
-             {%elif item.ide == "CEDEUS" %}
-             <strong style="color:#337ab7;">
-              {%endif%}
-              {{item.ide}}</strong>
-              <br>Fecha:{{item.fecha}}
-          </p>
-       </div>
-
-       {% endfor %}
-
+      </form>
      </div>
-     <div class="col-xs-12 col-md-8 col-lg-8">      
+     <div class="col-xs-12 col-md-9 col-lg-9" style="padding:0px;">
+     {% if content|length == 0 %}
+        <div class="col-xs-12 col-md-12 col-lg-12" style="padding-bottom:10px;padding:0px;">
+                <p style="font-size:13px;font-family:'open-sans semibold';text-align:center;padding-top:20px;">No hay resultados.</p>
+        </div>
+     {% endif %}      
        {% for item in content %}
-       <div class="col-xs-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
-        <div class="col-xs-6 col-md-4 col-lg-4" style="padding:0px;">
+       <div class="col-xs-12 col-md-12 col-lg-12" style="padding-bottom:10px;padding:0px;">
+        <div class="col-xs-6 col-md-4 col-lg-4 search_image" style="padding:0px;">
 
-         {%if item.categoria == "Fronteras"%}
-         <img src="{% static "images/iconos/Icono02_fronteras.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-         {%elif item.categoria == "Salud"%}
-         <img src="{% static "images/iconos/iconos09_salud.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-         {%elif item.categoria == "Economia"%}
-         <img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-         {%elif item.categoria == "Elevación"%}
-         <img src="{% static "images/iconos/iconos05_elevacion.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-         {%elif item.categoria == "Medio ambiente"%}
-         <img src="{% static "images/iconos/iconos06_mediambiente.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-         {%elif item.categoria == "Agricultura"%}
-         <img src="{% static "images/iconos/iconos07_agri.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-         {%elif item.categoria == "Información geocientífica"%}
-         <img src="{% static "images/iconos/iconos_logos-36.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-         {%elif item.categoria == "Climatología"%}
-         <img src="{% static "images/iconos/iconos03_meteorolo.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-         {%elif item.categoria == "Imágenes satelitales"%}
-         <img src="{% static "images/iconos/iconos10_imagesatelital.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-         {%elif item.categoria == "Imágenes satelitales"%}
-         <img src="{% static "images/iconos/iconos10_imagesatelital.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-         {%elif item.categoria == "Inteligencia militar"%}
-         <img src="{% static "images/iconos/iconos12_intmilitar.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">             
-         {%elif item.categoria == "Localización"%}
-         <img src="{% static "images/iconos/iconos13_localizacion.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-         {%elif item.categoria == "Oceanos"%}
-         <img src="{% static "images/iconos/iconos14_oceanos.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-         {%elif item.categoria == "Biota"%}
-         <img src="{% static "images/iconos/iconos20_biota.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-         {%elif item.categoria == "Sociedad"%}
-         <img src="{% static "images/iconos/iconos16_sociedad.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">    
-         {%elif item.categoria == "Infraestructura"%}
-         <img src="{% static "images/iconos/iconos17_infraestructura.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-         {%elif item.categoria == "Transporte"%}
-         <img src="{% static "images/iconos/iconos18_transporte.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-         {%elif item.categoria == "Telecomunicaciones"%}
-         <img src="{% static "images/iconos/iconos19_telecomunicaciones.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-         {%elif item.categoria == "Planificación catastro"%}
-         <img src="{% static "images/iconos/iconos15_planificacioncatastros.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-         {%else%}
-         <img src="{% static "images/iconos/Icono01_buscador.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
+          {%if item.categoria == "Fronteras"%}
+             <img src="{% static "images/iconos100/fronteras.png" %}" alt="icono" >
+             {%elif item.categoria == "Salud"%}
+             <img src="{% static "images/iconos100/salud.png" %}" alt="icono" >
+             {%elif item.categoria == "Economía"%}
+             <img src="{% static "images/iconos100/economia.png" %}" alt="icono" >
+             {%elif item.categoria == "Elevación"%}
+             <img src="{% static "images/iconos100/elevacion.png" %}" alt="icono" >
+             {%elif item.categoria == "Medio ambiente"%}
+             <img src="{% static "images/iconos100/medio_ambiente.png" %}" alt="icono" >
+             {%elif item.categoria == "Agricultura"%}
+             <img src="{% static "images/iconos100/agricultura.png" %}" alt="icono" >
+             {%elif item.categoria == "Información geocientífica"%}
+             <img src="{% static "images/iconos100/informacion_geocientifica.png" %}" alt="icono" >
+             {%elif item.categoria == "Climatología"%}
+             <img src="{% static "images/iconos100/climatologia.png" %}" alt="icono" >
+             {%elif item.categoria == "Imágenes satelitales"%}
+             <img src="{% static "images/iconos100/imagenes_satelitales.png" %}" alt="icono" >
+             {%elif item.categoria == "Inteligencia militar"%}
+             <img src="{% static "images/iconos100/inteligencia_militar.png" %}" alt="icono" > 
+             {%elif item.categoria == "Localización"%}
+             <img src="{% static "images/iconos100/localizacion.png" %}" alt="icono" > 
+             {%elif item.categoria == "Oceanos"%}
+             <img src="{% static "images/iconos100/oceanos.png" %}" alt="icono" > 
+             {%elif item.categoria == "Biota"%}
+             <img src="{% static "images/iconos100/biota.png" %}" alt="icono" > 
+             {%elif item.categoria == "Sociedad"%}
+             <img src="{% static "images/iconos100/sociedad.png" %}" alt="icono" >    
+             {%elif item.categoria == "Infraestructura"%}
+             <img src="{% static "images/iconos100/infraestructura.png" %}" alt="icono" > 
+             {%elif item.categoria == "Transporte"%}
+             <img src="{% static "images/iconos100/transporte.png" %}" alt="icono" > 
+             {%elif item.categoria == "Aguas terrestres"%}
+             <img src="{% static "images/iconos100/aguas_terrestres.png" %}" alt="icono" > 
+             {%elif item.categoria == "Telecomunicaciones"%}
+             <img src="{% static "images/iconos100/telecomunicaciones.png" %}" alt="icono" > 
+             {%elif item.categoria == "Planificación catastro"%}
+             <img src="{% static "images/iconos100/planificacion_catastro.png" %}" alt="icono" >
+             {%else%}
+             <img src="{% static "images/iconos100/buscador.png" %}" alt="icono" > 
 
-         {%endif%}
+             {%endif%}
 
        </div>
-       <div class="col-xs-6 col-md-8 col-lg-8">
+       <div class="col-xs-12 col-md-8 col-lg-8" style="padding-top:20px;padding-left:0px;padding-right:0px;">
 
-         {%if item.ide == "OCUC"%}
-         <a href="http://ide.ocuc.cl/layers/{{item.workspace}}:{{item.name}}">
-           {%elif item.ide == "CEDEUS"%}
-           <a href="http://datos.cedeus.cl/layers/{{item.workspace}}:{{item.name}}">             
+          {%if item.ide == "OCUC"%}
+             <a href="http://ide.ocuc.cl/layers/{{item.workspace}}:{{item.name}}" data-toggle="modal" data-target="#url-modal" onclick="redirigiendoOcuc(this);contador=3;">
+              <!--<img src="{% static 'images/rombo.png' %}" style="width: 4%;float: left;padding-right: 5px;"/>--><h4 style="font-size:18px;margin-top:0px;color:#000000;font-family:open-sans condensed bold;color:#000000;">{{item.titulo}}</h4>
+             {%elif item.ide == "CEDEUS"%}
+             <a href="http://datos.cedeus.cl/layers/{{item.workspace}}:{{item.name}}" data-toggle="modal" data-target="#url-modal" onclick="redirigiendoCedeus(this);contador=3;">
+              <h4 style="font-size:18px;margin-top:0px;color:#000000;font-family:open-sans condensed bold;color:#000000;">{{item.titulo}}</h4>             
              {%elif item.ide == "CIGIDEN"%}
-             <a href="http://ide.cigiden.cl/layers/{{item.workspace}}:{{item.name}}">
-               {%endif%}
+             <a href="http://ide.cigiden.cl/layers/{{item.workspace}}:{{item.name}}" data-toggle="modal" data-target="#url-modal" onclick="redirigiendoCigiden(this);contador=3;">
+              <h4 style="font-size:18px;margin-top:0px;color:#000000;font-family:open-sans condensed bold;color:#000000;">{{item.titulo}}</h4>
+             {%endif%}
+              </a>
 
-               <h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">{{item.titulo}}</h4></a>
-               <p>
-                Fuente: 
-                {%if item.ide == "CIGIDEN"%}
-                <strong style="color:#ff5000;">
-                 {%elif item.ide == "OCUC"%}
-                 <strong style="color:#000000;">
-                   {%elif item.ide == "CEDEUS" %}
-                   <strong style="color:#337ab7;">
-                    {%endif%}
-                    {{item.ide}}</strong>
-                    <br>Categoría: <strong>{{item.categoria}}</strong><br>Descripción:<br>{{item.abstract}}<br>Fecha:{{item.fecha}}
-                  </p>
+              <p style="font-size:13px;font-family:'open-sans semibold';">
+              Capa desde 
+              {%if item.ide == "CIGIDEN"%}
+              <strong style="color:#ff5000;">
+             {%elif item.ide == "OCUC"%}
+              <strong style="color:#000000;">
+             {%elif item.ide == "CEDEUS" %}
+              <strong style="color:#337ab7;">
+             {%endif%}
+              {{item.ide}}</strong> , {{item.fecha}}</p>
+              <p style="font-size:13px;font-family:'open-sans semibold';">{{item.abstract|slice:":200"}}
+              {% if item.abstract|length > 200 %}
+                ...
+              {% endif %}
+              </p>
                 </div>
               </div>
               {%endfor%}
 
+              <div class="col-xs-12 col-md-12 col-lg-12" style="text-align:center;">
               {% if categoria %}  
               {% if content.has_other_pages %}
               <ul class="pagination">
                 {% if content.number == 1 %}
-                <li class="disabled"><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page=1" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-backward" style="font-size:17px;"></i></a></li>
+                <li class="disabled"><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page=1" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-backward" style="font-size:12px;"></i></a></li>
                 {% else %}
-                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page=1"><i class="glyphicon glyphicon-fast-backward" style="font-size:17px;"></i></a></li>
+                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page=1"><i class="glyphicon glyphicon-fast-backward" style="font-size:12px;"></i></a></li>
                 {% endif %}
                 {% if content.has_previous %}
-                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{ content.previous_page_number }}"><i class="glyphicon glyphicon-backward" style="font-size:17px;"></i></a></li>
+                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{ content.previous_page_number }}"><i class="glyphicon glyphicon-backward" style="font-size:12px;"></i></a></li>
                 {% else %}
-                <li class="disabled"><span><i class="glyphicon glyphicon-backward" style="font-size:17px;"></i></span></li>
+                <li class="disabled"><span><i class="glyphicon glyphicon-backward" style="font-size:12px;"></i></span></li>
                 {% endif %}
 
                 {% for pg in page_range %}
@@ -445,14 +400,14 @@
                 {% endif %}
                 {% endfor %}
                 {% if content.has_next %}
-                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{ content.next_page_number }}"><i class="glyphicon glyphicon-forward" style="font-size:17px;"></i></a></li>
+                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{ content.next_page_number }}"><i class="glyphicon glyphicon-forward" style="font-size:12px;"></i></a></li>
                 {% else %}
-                <li class="disabled"><span><i class="glyphicon glyphicon-forward" style="font-size:17px;"></i></span></li>
+                <li class="disabled"><span><i class="glyphicon glyphicon-forward" style="font-size:12px;"></i></span></li>
                 {% endif %}
                 {% if content.number == max_index %}
-                <li class="disabled"><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{max_index}}" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-forward" style="font-size:17px;"></i></a></li>
+                <li class="disabled"><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{max_index}}" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-forward" style="font-size:12px;"></i></a></li>
                 {% else %}
-                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{max_index}}"><i class="glyphicon glyphicon-fast-forward" style="font-size:17px;"></i></a></li>
+                <li><a href="?busqueda={{bus}}&categoria={{categoria}}&origen={{origen}}&orden={{orden}}&fecha={{fecha}}&page={{max_index}}"><i class="glyphicon glyphicon-fast-forward" style="font-size:12px;"></i></a></li>
                 {% endif %}
               </ul>
               {% endif %}
@@ -460,14 +415,14 @@
               {% if content.has_other_pages %}
               <ul class="pagination">
                 {% if content.number == 1 %}
-                <li class="disabled"><a href="?page=1" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-backward" style="font-size:17px;"></i></a></li>
+                <li class="disabled"><a href="?page=1" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-backward" style="font-size:12px;"></i></a></li>
                 {% else %}
-                <li><a href="?page=1"><i class="glyphicon glyphicon-fast-backward" style="font-size:17px;"></i></a></li>
+                <li><a href="?page=1"><i class="glyphicon glyphicon-fast-backward" style="font-size:12px;"></i></a></li>
                 {% endif %}
                 {% if content.has_previous %}
-                <li><a href="?page={{ content.previous_page_number }}"><i class="glyphicon glyphicon-backward" style="font-size:17px;"></i></a></li>
+                <li><a href="?page={{ content.previous_page_number }}"><i class="glyphicon glyphicon-backward" style="font-size:12px;"></i></a></li>
                 {% else %}
-                <li class="disabled"><span><i class="glyphicon glyphicon-backward" style="font-size:17px;"></i></span></li>
+                <li class="disabled"><span><i class="glyphicon glyphicon-backward" style="font-size:12px;"></i></span></li>
                 {% endif %}
 
                 {% for pg in page_range %}
@@ -478,18 +433,19 @@
                 {% endif %}
                 {% endfor %}
                 {% if content.has_next %}
-                <li><a href="?page={{ content.next_page_number }}"><i class="glyphicon glyphicon-forward" style="font-size:17px;"></i></a></li>
+                <li><a href="?page={{ content.next_page_number }}"><i class="glyphicon glyphicon-forward" style="font-size:12px;"></i></a></li>
                 {% else %}
-                <li class="disabled"><span><i class="glyphicon glyphicon-forward" style="font-size:17px;"></i></span></li>
+                <li class="disabled"><span><i class="glyphicon glyphicon-forward" style="font-size:12px;"></i></span></li>
                 {% endif %}
                 {% if content.number == max_index %}
-                <li class="disabled"><a href="?page={{max_index}}" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-forward" style="font-size:17px;"></i></a></li>
+                <li class="disabled"><a href="?page={{max_index}}" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-forward" style="font-size:12px;"></i></a></li>
                 {% else %}
-                <li><a href="?page={{max_index}}"><i class="glyphicon glyphicon-fast-forward" style="font-size:17px;"></i></a></li>
+                <li><a href="?page={{max_index}}"><i class="glyphicon glyphicon-fast-forward" style="font-size:12px;"></i></a></li>
                 {% endif %}
               </ul>
               {% endif %}
               {% endif %}
+              </div>
 
             </div>
           </div>
@@ -519,31 +475,57 @@
       </div>
 
 
-      <script type="text/javascript">
-      $("#mostrar").click(function() {
-        $("#info").empty();
-        $("#info").load( "http://192.168.1.43/layers/geonode%3Apob_mz_iquique_12 #info" );
-      });
-
-      $("#mostrar1").click(function() {
-        $("#info1").empty();
-        $("#info1").load( "http://192.168.1.43/layers/geonode%3Apob_mz_iquique_12" );
-      });
-      </script>
 
       <script type="text/javascript">
+      var url="";
 
-      var cont=1;
-      $('.sync-pagination').twbsPagination({
-        totalPages: 4,
-        onPageClick: function (evt, page) {
-          $('#content').html('<div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#ff5000;">CIGIDEN</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#1F71b8;">CEDEUS</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#000000;">OCUC</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#000000;">OCUC</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div><div class="col-md-12"><div class="col-md-4" style="padding:0px;"><img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"></div><div class="col-md-8"><h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">NOMBRE DATO PELLENTESQUUE LUCTUS LACUS VITAE EX LOBORTIS EGESTAS '+cont+'</h4><p>Fuente: <strong style="color:#000000;">OCUC</strong><br>Categoría: <strong>Fronteras</strong><br>Descripción:<br>Vel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus. Pellentesque luctus lacus vitae ex lobortis egestas. Mauris eget tinvel aliquest risus.</p></div></div>');
-          cont++;
+        function redirigiendoOcuc(item) {
+          $("#append").html("Será redirigido a IDE-OCUC...");
+          contador=0;
+          url=item.href;
+          revisando=setInterval(appendiendo, interval);
         }
-      });
-</script>
+
+        function redirigiendoCigiden(item) {
+          $("#append").html("Será redirigido a IDE-CIGIDEN...");
+          contador=0;
+          url=item.href;
+          revisando=setInterval(appendiendo, interval);
+        }
+
+        function redirigiendoCedeus(item) {
+          $("#append").html("Será redirigido a IDE-CEDEUS...");
+          contador=0;
+          url=item.href;
+          revisando=setInterval(appendiendo, interval);
+        }
 
 
+        var contador=3;
+
+        var appendiendo = function() {
+
+          if($('#url-modal').hasClass('in'))
+          {
+
+          $("#contador").html(contador);
+          contador--;
+
+          if (contador < 0)
+          {
+              clearInterval(revisando);
+              contador=3;
+              window.location.href = url;
+           }
+          
+          }
+        };
+
+
+      var interval = 1000 * 1 * 1; // where X is your every X minutes
+
+      
+      </script>
 
 
 </body>

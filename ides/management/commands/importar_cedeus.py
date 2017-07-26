@@ -22,8 +22,8 @@ class Command(BaseCommand):
 
 					ide_db='CEDEUS'					
 					os.system('echo "descargando informacion %s"' % ide_db)					
-					user="ide"
-					password="password"
+					user="admin"
+					password="geoserver"
 					ide="http://datos.cedeus.cl"
 
 					request=urllib2.Request(ide)

@@ -99,7 +99,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/" style="padding:0;height:50px;"><img src="{% static 'images/logos/iconos_logos-29.png' %}" alt="Plataforma" style="width:96%;"></a>
+          <!--<a class="navbar-brand" href="/" style="padding:0;height:50px;"><img src="{% static 'images/logos/iconos_logos-29.png' %}" alt="Plataforma" style="width:96%;"></a>-->
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav" style="text-align:center;">
@@ -108,6 +108,7 @@
             {% endif%}
             <li class="centros"><a href="#" class="" role="" data-toggle="modal" data-target="#login-modal">CONTACTO</a></li>
             <li class="centros"><a href="#categoria">CATEGORÍAS</a></li>
+            <li class="centros"><a href="/quienes_somos">QUIENES SOMOS</a></li>
             <!--<li class="centros"><a href="#">QUIENES SOMOS</a></li>-->
           </ul>
           <ul class="nav navbar-nav navbar-right" style="text-align:center;margin-right:0px;">
@@ -123,7 +124,7 @@
       <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header" align="center">
-          <img class="img-circle" id="img_logo" src="{% static 'images/logos/iconos_logos-29.png' %}">
+          <img class="img-circle" id="img_logo" src="{% static 'images/logos/iconos_logos-28.png' %}">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           </button>
@@ -190,17 +191,18 @@
       </div>
 
       <div class="col-xs-12 col-md-9 col-lg-9">
-        <h2 style="font-family:'open-sans condensed bold';color:#3ba9e0;">QUIENES SOMOS</h2>
-        <p style="font-family:'open-sans semibold';font-size:14px;">
+        <h2 style="font-family:'open-sans condensed bold';color:#3ba9e0;">¿Qué es Plataforma de Datos?</h2>
+        <p style="font-family:'open-sans semibold';font-size:13px;">
           Plataforma de Datos es un catálogo que reúne y organiza la información geoespacial que se desarrolla y difunde a través de las Infraestructuras de Datos Espaciales de CEDEUS, OCUC y CIGIDEN.
         </p>
-        <p style="font-family:'open-sans semibold';font-size:14px;">
+        <p style="font-family:'open-sans semibold';font-size:13px;">
           Su objetivo es poner a disposición de la comunidad información geoespacial de calidad que promueva y sustente los procesos de toma de decisiones a nivel público y privado, la planificación urbana y regional, el desarrollo sustentable, la gestión del riesgo de desastres de origen natural, el fortalecimiento de la resiliencia, la adaptación al cambio climático, así como cualquier otro fenómeno que tenga una expresión en el territorio.
         </p>
+        
       </div>
     </div>
 
-    <div class="col-xs-12 col-md-12 col-lg-12" style="padding-bottom: 6%;padding-top: 6%;" id="categoria">
+    <div class="col-xs-12 col-md-12 col-lg-12" style="padding-bottom: 6%;padding-top: 3%;" id="categoria">
 
       <div class="col-xs-12 col-md-12 col-lg-12" style="padding:0;">
       <div class="col-xs-12 col-md-1 col-lg-1">

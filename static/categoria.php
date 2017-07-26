@@ -97,6 +97,7 @@
             {% endif%}
             <li class="centros"><a href="#" class="" role="" data-toggle="modal" data-target="#login-modal">CONTACTO</a></li>
             <li class="centros"><a href="/#categoria">CATEGORÍAS</a></li>
+            <li class="centros"><a href="/quienes_somos">QUIENES SOMOS</a></li>
             <li class="centros"><a href="/buscador/">BUSCADOR</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right" style="text-align:center;margin-right:0px;">
@@ -112,7 +113,7 @@
       <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header" align="center">
-          <img class="img-circle" id="img_logo" src="{% static 'images/logos/iconos_logos-29.png' %}">
+          <img class="img-circle" id="img_logo" src="{% static 'images/logos/iconos_logos-28.png' %}">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
           </button>
@@ -164,34 +165,107 @@
       </div>
     </div>
   </div>
+
+<div class="modal fade" id="url-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" align="center">
+          <img class="img-circle" id="img_logo" src="{% static 'images/logos/iconos_logos-29.png' %}">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
+        </div>
+                
+                <!-- Begin # DIV Form -->
+                <div id="div-forms">
+                
+                    <!-- Begin # Login Form -->
+                    <p id="append" style="text-align:center;font-size:30px;">Será redirigido...</p>
+                    <p id="contador" style="text-align:center;font-size:30px;"></p>
+                    <!-- End # Login Form -->       
+                </div>
+                <!-- End # DIV Form -->
+                
+      </div>
+    </div>
+  </div> 
 <!--modal-->
   </div>
 
   <div class="col-xs-12 col-md-12 col-lg-12 col_principal" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
 
-    <div class="col-xs-12 col-md-12 col-lg-12" style="background-image: url('{% static 'images/fondo/fondo_home-27.png' %}');border-bottom-style:inset;border-bottom-color:#3ba9e0;padding-bottom:3%;">
-      <div class="col-xs-6 col-md-3 col-lg-3">
-        <img src="{% static 'images/logos/iconos_logos-28.png' %}" alt="Plataforma" style="width: 75%;padding-top:12%;">
-      </div>
+    <div class="col-xs-12 col-md-12 col-lg-12 category" style="padding-top: 15px;padding-bottom: 15px;background-image: url('/static/images/fondo/fondo_home-27.png');">
+    <div class="col-xs-12 col-md-1 col-lg-1"></div>
+    <div class="col-xs-12 col-md-2 col-lg-2">
+                <div class="imm categorias">  
+            <img class="thumbnail img-responsive" src="{{caa.imagen.url}}" style="width:100%;">
 
-      <div class="col-xs-6 col-md-9 col-lg-9">
-        <h2 style="font-family:'open-sans condensed bold';color:#3ba9e0;">{{cat}}</h2>
-        <p style="font-size:18px;text-align:justify;">
+        <!--
+          {%if cat == "Fronteras"%}
+             <img src="{% static "images/iconos100/fronteras.png" %}" alt="icono" >
+             {%elif cat == "Salud"%}
+             <img src="{% static "images/iconos100/salud.png" %}" alt="icono" >
+             {%elif cat == "Economía"%}
+             <img src="{% static "images/iconos100/economia.png" %}" alt="icono" >
+             {%elif cat == "Elevación"%}
+             <img src="{% static "images/iconos100/elevacion.png" %}" alt="icono" >
+             {%elif cat == "Medio ambiente"%}
+             <img src="{% static "images/iconos100/medio_ambiente.png" %}" alt="icono" >
+             {%elif cat == "Agricultura"%}
+             <img src="{% static "images/iconos100/agricultura.png" %}" alt="icono" >
+             {%elif cat == "Información geocientífica"%}
+             <img src="{% static "images/iconos100/informacion_geocientifica.png" %}" alt="icono" >
+             {%elif cat == "Climatología"%}
+             <img src="{% static "images/iconos100/climatologia.png" %}" alt="icono" >
+             {%elif cat == "Imágenes satelitales"%}
+             <img src="{% static "images/iconos100/imagenes_satelitales.png" %}" alt="icono" >
+             {%elif cat == "Inteligencia militar"%}
+             <img src="{% static "images/iconos100/inteligencia_militar.png" %}" alt="icono" > 
+             {%elif cat == "Localización"%}
+             <img src="{% static "images/iconos100/localizacion.png" %}" alt="icono" > 
+             {%elif cat == "Oceanos"%}
+             <img src="{% static "images/iconos100/oceanos.png" %}" alt="icono" > 
+             {%elif cat == "Biota"%}
+             <img src="{% static "images/iconos100/biota.png" %}" alt="icono" > 
+             {%elif cat == "Sociedad"%}
+             <img src="{% static "images/iconos100/sociedad.png" %}" alt="icono" >    
+             {%elif cat == "Infraestructura"%}
+             <img src="{% static "images/iconos100/infraestructura.png" %}" alt="icono" > 
+             {%elif cat == "Transporte"%}
+             <img src="{% static "images/iconos100/transporte.png" %}" alt="icono" > 
+             {%elif cat == "Aguas terrestres"%}
+             <img src="{% static "images/iconos100/aguas_terrestres.png" %}" alt="icono" > 
+             {%elif cat == "Telecomunicaciones"%}
+             <img src="{% static "images/iconos100/telecomunicaciones.png" %}" alt="icono" > 
+             {%elif cat == "Planificación catastro"%}
+             <img src="{% static "images/iconos100/planificacion_catastro.png" %}" alt="icono" >
+             {%else%}
+             <img src="{% static "images/iconos100/buscador.png" %}" alt="icono" > 
+
+             {%endif%}
+           -->
+      </div>
+    </div>
+
+      <div class="col-xs-12 col-md-8 col-lg-8">
+        <h2 style="font-family:'open-sans condensed bold';color:#3ba9e0;margin-top:0px;">{{cat}}</h2>
+        <p style="font-size:13px;text-align:center;font-family:'open-sans semibold';">
           {{descripcion}}
         </p>
       </div>
+      <div class="col-xs-12 col-md-1 col-lg-1"></div>
     </div>
 
     </div>
 
     <div class="col-xs-12 col-md-12 col-lg-12" style="background-color:#ffffff;padding-left: 15%;padding-right: 15%;padding-bottom: 2%;font-size:12px;">
-      <div class="col-xs-12 col-md-12 col-lg-12" style="border-bottom-style:outset;border-bottom-color:#3BA9E0;padding:0px;">
-      <div class="col-xs-12 col-md-4 col-lg-4" style="border-top-style:outset;border-top-color:#3BA9E0;padding-bottom:2%;">
+      <div class="col-xs-12 col-md-12 col-lg-12" style="/*border-bottom-style:outset;border-bottom-color:#3BA9E0;*/padding:0px;">
+      <div class="col-xs-12 col-md-4 col-lg-4" style="/*border-top-style:outset;border-top-color:#3BA9E0;*/padding-bottom:2%;">
 
       <form action="/categoria/" method="GET">
        <div class="form-group">
        <input type="hidden" name="cat" value="{{cat}}"/>
-       <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';">ORDEN</h3>
+       <h3 style="color:#3BA9E0;font-family:'open-sans condensed bold';margin-top:0px;">ORDEN</h3>
         <div id="custom-search-input" style="margin-bottom:20px;">
             <div class="input-group col-xs-12 col-md-12 col-lg-12" style="padding-bottom:2%;">
                 <select name="order" class="form-control">
@@ -226,86 +300,54 @@
       </div>
       <div class="col-xs-12 col-md-8 col-lg-8">      
 
+            {% if content|length == 0 %}
+               <div class="col-xs-12 col-md-12 col-lg-12" style="padding-bottom:10px;padding:0px;">
+                       <p style="font-size:13px;font-family:'open-sans semibold';text-align:center;padding-top:20px;">No hay resultados.</p>
+               </div>
+            {% endif %}  
+
              {% for item in content %}
-             <div class="col-xs-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
-             <div class="col-xs-6 col-md-4 col-lg-4" style="padding:0px;">
+             <div class="col-xs-12 col-md-12 col-lg-12" style="padding-bottom:15px;">
 
-             {%if item.categoria == "Fronteras"%}
-             <img src="{% static "images/iconos/Icono02_fronteras.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-             {%elif item.categoria == "Salud"%}
-             <img src="{% static "images/iconos/iconos09_salud.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-             {%elif item.categoria == "Economia"%}
-             <img src="{% static "images/iconos/iconos04_economia.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-             {%elif item.categoria == "Elevación"%}
-             <img src="{% static "images/iconos/iconos05_elevacion.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-             {%elif item.categoria == "Medio ambiente"%}
-             <img src="{% static "images/iconos/iconos06_mediambiente.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-             {%elif item.categoria == "Agricultura"%}
-             <img src="{% static "images/iconos/iconos07_agri.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-             {%elif item.categoria == "Información geocientífica"%}
-             <img src="{% static "images/iconos/iconos_logos-36.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-             {%elif item.categoria == "Climatología"%}
-             <img src="{% static "images/iconos/iconos03_meteorolo.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-             {%elif item.categoria == "Imágenes satelitales"%}
-             <img src="{% static "images/iconos/iconos10_imagesatelital.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-             {%elif item.categoria == "Imágenes satelitales"%}
-             <img src="{% static "images/iconos/iconos10_imagesatelital.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">
-             {%elif item.categoria == "Inteligencia militar"%}
-             <img src="{% static "images/iconos/iconos12_intmilitar.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">             
-             {%elif item.categoria == "Localización"%}
-             <img src="{% static "images/iconos/iconos13_localizacion.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-             {%elif item.categoria == "Oceanos"%}
-             <img src="{% static "images/iconos/iconos14_oceanos.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-             {%elif item.categoria == "Biota"%}
-             <img src="{% static "images/iconos/iconos20_biota.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-             {%elif item.categoria == "Sociedad"%}
-             <img src="{% static "images/iconos/iconos16_sociedad.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;">    
-             {%elif item.categoria == "Infraestructura"%}
-             <img src="{% static "images/iconos/iconos17_infraestructura.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-             {%elif item.categoria == "Transporte"%}
-             <img src="{% static "images/iconos/iconos18_transporte.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-             {%elif item.categoria == "Telecomunicaciones"%}
-             <img src="{% static "images/iconos/iconos19_telecomunicaciones.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-             {%elif item.categoria == "Planificación catastro"%}
-             <img src="{% static "images/iconos/iconos15_planificacioncatastros.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-             {%else%}
-             <img src="{% static "images/iconos/Icono01_buscador.png" %}" alt="icono" style="width:100%;background-color:#EDEDED;"> 
-
-             {%endif%}
-
-             </div>
-             <div class="col-xs-6 col-md-8 col-lg-8">
+             <div class="col-xs-12 col-md-12 col-lg-12">
 
              {%if item.ide == "OCUC"%}
-             <a href="http://ide.ocuc.cl/layers/{{item.workspace}}:{{item.name}}">
+             <a href="http://ide.ocuc.cl/layers/{{item.workspace}}:{{item.name}}" data-toggle="modal" data-target="#url-modal" onclick="redirigiendoOcuc(this);contador=3;">
+              <h4 style="font-size:18px;margin-top:0px;color:#000000;font-family:open-sans condensed bold;color:#000000;">{{item.titulo}}</h4>
              {%elif item.ide == "CEDEUS"%}
-             <a href="http://datos.cedeus.cl/layers/{{item.workspace}}:{{item.name}}">             
+             <a href="http://datos.cedeus.cl/layers/{{item.workspace}}:{{item.name}}" data-toggle="modal" data-target="#url-modal" onclick="redirigiendoCedeus(this);contador=3;">
+              <h4 style="font-size:18px;margin-top:0px;color:#000000;font-family:open-sans condensed bold;color:#000000;">{{item.titulo}}</h4>             
              {%elif item.ide == "CIGIDEN"%}
-             <a href="http://ide.cigiden.cl/layers/{{item.workspace}}:{{item.name}}">
+             <a href="http://ide.cigiden.cl/layers/{{item.workspace}}:{{item.name}}" data-toggle="modal" data-target="#url-modal" onclick="redirigiendoCigiden(this);contador=3;">
+              <h4 style="font-size:18px;margin-top:0px;color:#000000;font-family:open-sans condensed bold;color:#000000;">{{item.titulo}}</h4>
              {%endif%}
+              </a>
 
-              <h4 style="margin-top:0px;color:#000000;font-family:open-sans condensed bold;">{{item.titulo}}</h4></a><p>Fuente: 
-             {%if item.ide == "CIGIDEN"%}
+              <p style="font-size:13px;font-family:'open-sans semibold';">
+              Capa desde 
+              {%if item.ide == "CIGIDEN"%}
               <strong style="color:#ff5000;">
              {%elif item.ide == "OCUC"%}
               <strong style="color:#000000;">
              {%elif item.ide == "CEDEUS" %}
               <strong style="color:#337ab7;">
              {%endif%}
-             {{item.ide}}</strong><br>Categoría: <strong>{{item.categoria}}</strong><br>Descripción:<br>{{item.abstract}}<br>Fecha:{{item.fecha}}</p></div></div>{%endfor%}
+              {{item.ide}}</strong> , {{item.fecha}}</p>
+              <p style="font-size:13px;font-family:'open-sans semibold';">{{item.abstract}}</p></div></div>{%endfor%}
 
 
-{% if content.has_other_pages %}
+             <div style="text-align:center;">
+              {% if content.has_other_pages %}
                 <ul class="pagination">
                   {% if content.number == 1 %}
-                  <li class="disabled"><a href="?/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page=1" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-backward" style="font-size:17px;"></i></a></li>
+                  <li class="disabled"><a href="?/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page=1" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-backward" style="font-size:12px;"></i></a></li>
                   {% else %}
-                    <li><a href="/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page=1"><i class="glyphicon glyphicon-fast-backward" style="font-size:17px;"></i></a></li>
+                    <li><a href="/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page=1"><i class="glyphicon glyphicon-fast-backward" style="font-size:12px;"></i></a></li>
                   {% endif %}
                   {% if content.has_previous %}
-                    <li><a href="/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page={{ content.previous_page_number }}"><i class="glyphicon glyphicon-backward" style="font-size:17px;"></i></a></li>
+                    <li><a href="/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page={{ content.previous_page_number }}"><i class="glyphicon glyphicon-backward" style="font-size:12px;"></i></a></li>
                   {% else %}
-                    <li class="disabled"><span><i class="glyphicon glyphicon-backward" style="font-size:17px;"></i></span></li>
+                    <li class="disabled"><span><i class="glyphicon glyphicon-backward" style="font-size:12px;"></i></span></li>
                   {% endif %}
               
                   {% for pg in page_range %}
@@ -316,20 +358,20 @@
                     {% endif %}
                   {% endfor %}
                   {% if content.has_next %}
-                    <li><a href="/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page={{ content.next_page_number }}"><i class="glyphicon glyphicon-forward" style="font-size:17px;"></i></a></li>
+                    <li><a href="/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page={{ content.next_page_number }}"><i class="glyphicon glyphicon-forward" style="font-size:12px;"></i></a></li>
                   {% else %}
-                    <li class="disabled"><span><i class="glyphicon glyphicon-forward" style="font-size:17px;"></i></span></li>
+                    <li class="disabled"><span><i class="glyphicon glyphicon-forward" style="font-size:12px;"></i></span></li>
                   {% endif %}
                   {% if content.number == max_index %}
-                  <li class="disabled"><a href="/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page={{max_index}}" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-forward" style="font-size:17px;"></i></a></li>
+                  <li class="disabled"><a href="/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page={{max_index}}" style="color:rgb(119, 119, 119);"><i class="glyphicon glyphicon-fast-forward" style="font-size:12px;"></i></a></li>
                   {% else %}
-                    <li><a href="/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page={{max_index}}"><i class="glyphicon glyphicon-fast-forward" style="font-size:17px;"></i></a></li>
+                    <li><a href="/categoria/?cat={{cat}}&order={{order}}&fecha={{fecha}}&origen={{origen}}&page={{max_index}}"><i class="glyphicon glyphicon-fast-forward" style="font-size:12px;"></i></a></li>
                   {% endif %}
                 </ul>
-{% endif %}
+                {% endif %}
+                </div>
 
-
-      </div>
+                </div>
       </div>
 
 <div class="col-xs-12 col-md-12 col-lg-12 footer">
@@ -374,7 +416,56 @@ var cont=1;
 </script>
 
 
+      <script type="text/javascript">
+      var url="";
 
+        function redirigiendoOcuc(item) {
+          $("#append").html("Será redirigido a IDE-OCUC...");
+          contador=0;
+          url=item.href;
+          revisando=setInterval(appendiendo, interval);
+        }
+
+        function redirigiendoCigiden(item) {
+          $("#append").html("Será redirigido a IDE-CIGIDEN...");
+          contador=0;
+          url=item.href;
+          revisando=setInterval(appendiendo, interval);
+        }
+
+        function redirigiendoCedeus(item) {
+          $("#append").html("Será redirigido a IDE-CEDEUS...");
+          contador=0;
+          url=item.href;
+          revisando=setInterval(appendiendo, interval);
+        }
+
+
+        var contador=3;
+
+        var appendiendo = function() {
+
+          if($('#url-modal').hasClass('in'))
+          {
+
+          $("#contador").html(contador);
+          contador--;
+
+          if (contador < 0)
+          {
+              clearInterval(revisando);
+              contador=3;
+              window.location.href = url;
+           }
+          
+          }
+        };
+
+
+      var interval = 1000 * 1 * 1; // where X is your every X minutes
+
+      
+      </script>
 
 </body>
 </html>
