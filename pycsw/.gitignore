@@ -1,0 +1,17 @@
+# build artifacts
+*.pyc
+*.egg-info
+build
+dist
+docs/_build
+MANIFEST
+
+# testing artifacts
+tests/index.html
+tests/results
+
+# test configurations
+/default.cfg
+
+# test repositories
+data
